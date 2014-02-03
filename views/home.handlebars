@@ -1,8 +1,16 @@
 <h1>Example App: Home</h1>
 
 {{#if user }}
-	<h1>Welcome Home{{#if user.name}} {{ user.name }}{{/if}}!</h1>
-	<a href="logout">Logout</a>
+	{{#if user.name}}
+		<h1>Hi there {{ user.name }}!</h1>
+	{{else}}
+		<h1>Welcome to LIMS!</h1>
+		<p>Please <a href="/settings">click here</a> to finish setting up your account</p>
+	{{/if}}
+	
+	<a href="logout">Logout</a> |
+	<a href="products">Product Profiles</a> |
+	<a href="users">Registered Users</a>
 {{else }}
 	<a href="login">Login</a>
 	or

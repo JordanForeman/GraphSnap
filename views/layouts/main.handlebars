@@ -4,7 +4,11 @@
 		<meta charset="utf-8" />
 		<title>LIMS</title>
 	</head>
-	<body>
+	<body>		
+
+		{{#if error}}
+			<p>{{error}}</p>
+		{{/if}}
 
 		{{{body}}}
 

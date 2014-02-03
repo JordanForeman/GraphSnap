@@ -1,0 +1,20 @@
+{{#if products }}
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+	{{#each products}}
+		<tr>
+			<td><a href="products/{{ _id }}">{{productName}}</a></td>
+		</tr>
+	{{/each}}
+		</tbody>
+	</table>
+{{else}}
+No Products found
+{{/if}}
+
+<a href="products/createNew">Create A Product</a>

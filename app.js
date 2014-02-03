@@ -34,6 +34,7 @@ app.set('view engine', 'handlebars');
 /* Controllers */
 require('./controllers/Auth')(app);
 require('./controllers/Users')(app);
+require('./controllers/Product')(app);
 
 // 	var AdminController = require('./controllers/Admin');
 
@@ -46,7 +47,6 @@ db.on('error', function(){
 });
 
 db.on('open', function(){
-	//TODO: create schemas and models
 
 	attachDB = function(req, res, next) {
 		req.db = db;

@@ -1,5 +1,22 @@
-{{#if users}}
-	<h1>Users found!</h1>
+{{#if users }}
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Email</th>
+				<th>Joined Date</th>
+			</tr>
+		</thead>
+		<tbody>
+	{{#each users}}
+		<tr>
+			<td><a href="users/{{ _id }}">{{ _id }}</a></td>
+			<td><a href="mailto:{{ email }}">{{ email }}</a></td>
+			<td>{{ joinDate }}</td>
+		</tr>
+	{{/each}}
+		</tbody>
+	</table>
 {{else}}
-	<h1>No Users Found</h1>
+No Products found
 {{/if}}

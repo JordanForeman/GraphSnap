@@ -1,0 +1,19 @@
+<h1>Edit Your Settings</h1>
+{{#if user}}
+
+<form id="userSettingsForm" method="POST" action="/settings">
+	<input type="hidden" name="uid" value="{{user._id}}" />
+	<label for="name">Name: 
+	<input type="text" name="name" id="name" {{#if user.name}}value="{{user.name}}"{{/if}} required/>
+	</label>
+	<br />
+	<label for="email">Email: 
+	<input type="email" name="email" id="email" {{#if user.email}}value="{{user.email}}"{{/if}} required/>
+	</label>
+	<br />
+	<input type="submit" value="Save Settings" />
+</form>
+
+{{else}}
+There was an error getting your information. Please <a href="/login">login</a> again.
+{{/if}}

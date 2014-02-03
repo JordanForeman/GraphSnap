@@ -9,7 +9,8 @@
 		"passport": "latest",
 		"passport-local": "latest",
 		"passport-local-mongoose": "latest",
-		"mongoose": "latest"
+		"mongoose": "latest",
+		"connect-ensure-login": "latest"
 	},
 	"devDependencies": {
 		"grunt": "latest"
