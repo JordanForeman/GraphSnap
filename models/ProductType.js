@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	productTypeSchema = new Schema({
 
-		productName: {
+		productTypeName: {
 			type: String,
 			required: true,
 			unique: true
@@ -14,13 +14,14 @@ var mongoose = require('mongoose'),
 			required: true
 		},
 
-		customFieldTypes: {
+		tests: {
 			type: Array
 		},
 
-		tests: {
-			type: Array
-		}
+		customFieldTypes: [{
+			type: Schema.Types.ObjectId,
+			ref: 'customFieldType'
+		}],
 
 	}),
 	ProductType = mongoose.model('productType', productTypeSchema);

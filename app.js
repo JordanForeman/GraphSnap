@@ -22,9 +22,22 @@ app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
-app.use(express.session());
+app.use(express.session({cookie: { 
+  expires: new Date(Date.now() + 60 * 10000), 
+  maxAge: 60*10000
+}}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(function(req, res, next){
+	if (req.user){
+		res.locals.user = req.user;
+
+		//TODO: get all notifications for user
+	}
+	next();
+});
+
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -35,8 +48,11 @@ app.set('view engine', 'handlebars');
 require('./controllers/Auth')(app);
 require('./controllers/Users')(app);
 require('./controllers/Product')(app);
+require('./controllers/ProductType')(app);
 
-// 	var AdminController = require('./controllers/Admin');
+/* API */
+require('./api/api')(app);
+require('./api/ProductType')(app);
 
 /* Connect */
 var host = "mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName;

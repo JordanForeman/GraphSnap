@@ -21,6 +21,9 @@ module.exports = function(app){
 	});
 
 	app.get('/users/:id', function(req, res){
+		if (!req.user)
+			res.redirect('/login');
+
 		console.log(req.params.id);
 
 		User.findById(req.params.id, function(err, u){
@@ -29,7 +32,6 @@ module.exports = function(app){
 			} else if (!u) {
 				console.log('no user with that id');
 			} else {
-				console.log("success");
 				res.render('users/single', {usr : u});
 				return;
 			}
@@ -44,10 +46,12 @@ module.exports = function(app){
 			res.redirect("/");
 		}
 
-		res.render('users/settings', { user: req.user });
+		res.render('users/settings');
 	});
 
 	app.post('/settings', function(req, res){
+		if (!req.user)
+			res.redirect('/login');
 		User.update({_id : req.body.uid}, 
 					{
 						name: req.body.name,

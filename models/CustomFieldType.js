@@ -12,8 +12,9 @@ var mongoose = require('mongoose'),
 			required: true
 		},
 
-		productTypeId: {
-			type: String,
+		productType: {
+			type: Schema.Types.ObjectId,
+			ref: 'productType',
 			required: true
 		},
 
@@ -24,6 +25,6 @@ var mongoose = require('mongoose'),
 		}
 
 	}),
-	CustomFieldType = mongoose.model('product', customFieldTypeSchema);
+	CustomFieldType = mongoose.model('customFieldType', customFieldTypeSchema);
 
 module.exports = CustomFieldType;

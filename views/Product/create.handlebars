@@ -1,8 +1,18 @@
-<h1>Create a new Product</h1>
-<form id="createNewProductForm" method="POST" action="createNew">
-	<label for="productName">Product Name:
-	<input type="text" name="productName" id="productName" />
-	</label>
+<form role="form" id="createNewProductForm" method="POST" action="createNew">
+	
+	{{#if productType}}
+	{{else}}	
+	<p class="well">What type of product are we creating?</p>
+	<div class="form-group">
+		<label for="productType">Product Type:</label>
+		<select onchange="app.selectProductTypeToMake(event)" class="chosen form-control" name="productType" id="productType">
+			<option value="0">-- Select a Product Type --</option>
+			{{#each productTypes}}
+				<option value="{{_id}}">{{productTypeName}}</option>
+			{{/each}}
+		</select>
+	</div>
 	<br />
-	<input type="submit" value="Create" />
+	<input type="submit" style="display: none;" value="Create Product" />
+	{{/if}}
 </form>

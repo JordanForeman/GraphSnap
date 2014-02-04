@@ -1,15 +1,22 @@
-<h1>{{ title }}</h1>
+<br />
 <form method="POST" action="/login">
-	<label for="email">Email
-	<input type="email" id="email" name="email" />
-	</label>
-	<br />
+	<div class="jumbotron">
+		<h1>LIMS - Company Name</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, cupiditate, sunt saepe distinctio ab provident laudantium odio in blanditiis quas alias magnam quisquam aut consectetur molestiae quod recusandae optio repellendus!</p>
 
-	<label for="password">Password
-	<input type="password" id="password" name="password" />
-	</label>
-	<br />
-
-	<input type="submit" value="Login" />
-	<a href="register">or Register...</a>
+		<form role="form" method="POST" action="/login">
+			<div class="input-group input-group-lg" style="width: 100%;">
+				<label for="exampleInputEmail1">Email address</label>
+				<input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter email">
+			</div>
+			<div class="input-group input-group-lg" style="width: 100%;">
+				<label for="exampleInputPassword1">Password</label>
+				<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			</div>
+			<br />
+			<button type="submit" class="btn btn-lg btn-default">Login</button>
+			<a href="/register">Register</a>
+			<a class="pull-right" href="#">Forgot Password?</a>
+		</form>
+	</div>
 </form>

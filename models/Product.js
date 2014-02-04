@@ -2,10 +2,10 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	productSchema = new Schema({
 
-		productTypeId: {
-			type: String,
+		productType: {
+			type: Schema.Types.ObjectId,
 			required: true,
-			unique: true
+			ref: 'productType'
 		},
 
 		createdDate: {
