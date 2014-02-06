@@ -55,7 +55,7 @@ require('./api/api')(app);
 require('./api/ProductType')(app);
 
 /* Connect */
-var host = "mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName;
+var host = config.dbHost || ("mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName);
 var db = mongoose.connection;
 db.on('error', function(){
 	//TODO: error
