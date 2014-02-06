@@ -13,15 +13,15 @@ var config = {
 		host: 'localhost',
 		dbPort: 27017,
 		dbName: 'DB',
-		dbHost: "mongodb://localhost:27017/DB"
+		dbHost: "mongodb://localhost:27017/DB" //TODO: setup staging environment
 	},
 	production: {
 		mode: 'production',
-		port: 5000,
+		port: process.env.PORT,
 		host: 'localhost',
 		dbPort: 27017,
 		dbName: 'DB',
-		dbHost: "mongodb://localhost:27017/DB"
+		dbHost: process.env.MONGOHQ_URL
 	}
 }
 
