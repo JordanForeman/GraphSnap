@@ -1,20 +1,40 @@
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
-	productSchema = new Schema({
+	Schema = mongoose.Schema;
 
-		productType: {
-			type: Schema.Types.ObjectId,
-			required: true,
-			ref: 'productType'
-		},
+var Product;
 
-		createdDate: {
-			type: Date,
-			default: Date.now,
-			required: true
-		},
+try 
+{
+	if (mongoose.model('product')) 
+		Product = mongoose.model('product');
+} 
+catch(e) 
+{
+	if (e.name === 'MissingSchemaError') {
 
-	}),
-	Product = mongoose.model('product', productSchema);
+		var productSchema = new Schema({
+
+			productType: {
+				type: Schema.Types.ObjectId,
+				required: true,
+				ref: 'productType'
+			},
+
+			customFields: [{
+				type: Schema.Types.ObjectId,
+				ref: 'customField'
+			}],
+
+			createdDate: {
+				type: Date,
+				default: Date.now,
+				required: true
+			},
+
+		});
+
+		Product = mongoose.model('product', productSchema);
+	}
+}
 
 module.exports = Product;

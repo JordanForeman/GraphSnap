@@ -3,6 +3,11 @@ var mongoose = require('mongoose'),
 	customFieldSchema = new Schema({
 
 		customFieldType: {
+			type: Schema.Types.ObjectId,
+			required: true
+		},
+
+		name: {
 			type: String,
 			required: true
 		},
@@ -13,7 +18,7 @@ var mongoose = require('mongoose'),
 		},
 
 		productId: {
-			type: String,
+			type: Schema.Types.ObjectId,
 			required: true
 		},
 
@@ -24,6 +29,6 @@ var mongoose = require('mongoose'),
 		}
 
 	}),
-	CustomField = mongoose.model('product', customFieldSchema);
+	CustomField = mongoose.model('customField', customFieldSchema);
 
 module.exports = CustomField;

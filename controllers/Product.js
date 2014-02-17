@@ -2,7 +2,10 @@ var BaseController = require("./Base"),
 	View = require("../views/Base"),
 	passport = require('passport'),
 	User = require("../models/Users"),
+	Schema = require('mongoose').Schema,
 	ProductType = require("../models/ProductType"),
+	CustomField = require("../models/CustomField"),
+	CustomFieldType = require("../models/CustomFieldType"),
 	Product = require("../models/Product");
 
 module.exports = function(app){
@@ -32,14 +35,38 @@ module.exports = function(app){
 			res.redirect('/login');
 
 		var prod = new Product;
-		prod.productName = req.body.productName;
 
-		ProductType.findById(req.body.productTypeId, function(err, prodType){
+		ProductType.findById(req.body.productTypeId)
+		.populate('customFieldTypes')
+		.exec(function(err, prodType){
+			
+			var fields = prodType.customFieldTypes,
+				productCustomFields = Array();
+
+			for(var i = 0; i < fields.length; i++)
+			{
+				var field = new CustomField;
+
+				var inputFieldName = fields[i].name.replace(/\s+/g, '-').toLowerCase();
+
+
+				field.name = fields[i].name;
+				field.customFieldType = fields[i]._id;
+				field.value = req.body[inputFieldName];
+				field.productId = prod;
+
+				prod.customFields.push(field._id);
+				
+				field.save(function(err){
+					if (err) console.log(err);
+				}); //TODO: err?
+			}
+
 			prod.productType = prodType;
-		});
+			prod.save(function(err){
+				if (err) console.log(err);
+			});
 
-		prod.save(function(err){
-			if (err) console.log(err);
 		});
 
 		res.redirect("/products");
@@ -49,27 +76,22 @@ module.exports = function(app){
 		if (!req.user)
 			res.redirect('/login');
 
-		var productTypes;
-
+		//Get ProductTypes
 		ProductType.find({}, function(err, prodTypes){
-						if (err) console.log(err);
-						productTypes = prodTypes;
-					});
+			if (err) console.log(err);
 
-		ProductType.count({}, function(err, count){
-			console.log(count);
-			if (count <= 0)
-				productTypes = null;
-		});
+			//Get Products
+			Product.find({})
+			.populate('productType')
+			.populate('customFields')
+			.exec(function(err, prods){
+				if (err) console.log(err);
 
-		console.log(productTypes);
-
-		Product.find({}, function(err, products){
-			//TODO: handle error
-			res.render("Product/index", {
-				productTypes: productTypes, 
-				products: products
-			});
+				res.render("Product/index", {
+					productTypes: prodTypes,
+					products: prods
+				});
+			})
 		});
 	});
 

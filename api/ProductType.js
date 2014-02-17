@@ -5,7 +5,9 @@ var mongoose = require('mongoose'),
 module.exports = function(app){
 
 	app.get('/api/ProductTypes/:id', function(req, res){
-		ProductType.findById(req.params.id, function(err, productType){
+		ProductType.findById(req.params.id)
+		.populate('customFieldTypes')
+		.exec(function(err, productType){
 			if (err)
 			{
 				//TODO: gracefully return API failure

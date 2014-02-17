@@ -28,20 +28,28 @@
 
 <h2>Products <a class="btn btn-default" href="Products/CreateNew">Create New</a></h2>
 {{#if products }}
+	{{#each products}}
+	<h4>Instances of {{productType.productTypeName}}</h4>
 	<table>
+		{{#if customFields}}
 		<thead>
 			<tr>
-				<th>Name</th>
+				{{#each customFields}}
+				<td>{{name}}</td>
+				{{/each}}
 			</tr>
 		</thead>
+		{{/if}}
 		<tbody>
-	{{#each products}}
 		<tr>
-			<td><a href="products/{{ _id }}">{{productName}}</a></td>
+			{{#each customFields}}
+			<td>{{value}}</td>
+			{{/each}}
 		</tr>
-	{{/each}}
 		</tbody>
 	</table>
+	<a href="/Products/{{id}}/CreateNew">Create a new {{productType.productTypeName}} instance</a>
+	{{/each}}
 {{else}}
 <p>No Products found - <a href="Products/CreateNew">Create A Product</a></p>
 {{/if}}

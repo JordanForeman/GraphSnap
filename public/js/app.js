@@ -27,7 +27,32 @@ var app = {
 	},
 
 	selectProductTypeToMake: function(event){
-		console.log("DERP!");
+		var selectedIndex = event.target.selectedIndex;
+		var selectedValue = event.target[selectedIndex].value;
+
+		var createProductForm = $('#createNewProductForm');
+
+		$.get('/api/ProductTypes/' + selectedValue, function(data){
+			console.log(data);
+
+			var fields = data.customFieldTypes;
+			for(var i = 0; i < fields.length; i++)
+			{
+				var inputType = fields[i].dataType.toLowerCase();
+				var inputName = fields[i].name.replace(/\s+/g, '-').toLowerCase();
+				var label = '<label>' + fields[i].name + '</label>';
+				var input = '<input type="' + inputType + '" name="' + inputName + '">';
+
+				createProductForm.append(label);
+				createProductForm.append(input);
+				createProductForm.append('<br>');
+			}
+
+			$('#productTypeId').attr('value', data._id);
+			createProductForm.append('<input type="submit" value="Create Product">');
+			// createProductForm.show();
+		});
+
 	},
 
 };
