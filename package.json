@@ -1,18 +1,22 @@
 {
-	"name": "lims",
-	"version": "0.0.1",
-	"dependencies": {
-		"express": "latest",
-		"express3-handlebars": "latest",
-		"mongodb": "latest",
-		"underscore": "latest",
-		"passport": "latest",
-		"passport-local": "latest",
-		"passport-local-mongoose": "latest",
-		"mongoose": "latest",
-		"connect-ensure-login": "latest"
-	},
-	"devDependencies": {
-		"grunt": "latest"
-	}
+  "name": "lims",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "latest",
+    "express3-handlebars": "latest",
+    "mongodb": "latest",
+    "underscore": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "passport-local-mongoose": "latest",
+    "mongoose": "latest",
+    "connect-ensure-login": "latest"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-sass": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-nodemon": "~0.2.0",
+    "grunt-concurrent": "~0.4.3"
+  }
 }
