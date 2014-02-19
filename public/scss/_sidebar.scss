@@ -1,0 +1,12 @@
+.sidebar-main
+{
+	background: $darkGray;
+
+	position: absolute;
+	top: $headerHeight;
+	bottom: 0;
+	left: 0;
+
+	display: block;
+	width: $sidebarWidthFull;
+}

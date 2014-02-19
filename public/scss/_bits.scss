@@ -1,0 +1,17 @@
+//Colors
+$darkGray: DARKGRAY;
+
+//Numbers
+$headerHeight: 50px;
+$sidebarWidthFull: 150px;
+$sidebarWidthSmall: 45px;
+
+//Mixins
+@mixin clearfix {
+	&:after
+	{
+		content: '';
+		display: table;
+		clear: both;
+	}
+}

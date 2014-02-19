@@ -1,5 +1,5 @@
 node_modules
 data
 .DS_Store
-node_modules
+.sass-cache
 css
