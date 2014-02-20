@@ -9,4 +9,55 @@
 
 	display: block;
 	width: $sidebarWidthFull;
+
+
+
+	@include breakpoint(baby-bear) {
+		width: $sidebarWidthSmall;
+	}
+
+	.nav
+	{
+		list-style-type: none;
+
+		li
+		{
+			display: block;
+			overflow: hidden;
+			white-space: nowrap;
+
+			&:hover
+			{
+				background: darken($darkGray, 20);
+
+				a{ color: $orange; }
+			}
+
+			a
+			{
+				display: block;
+				padding: 15px 5px;
+
+				text-decoration: none;
+				color: WHITE;
+
+				line-height: 30px;
+
+				i {
+					font-size: 1.6em;
+					vertical-align: middle;
+
+					padding: 4px;
+				}
+
+				span {
+					vertical-align: middle;
+
+					@include breakpoint(baby-bear) {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 }

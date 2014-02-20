@@ -1,5 +1,7 @@
 header
 {
+	background: $darkGray;
+
 	position: fixed;
 	top: 0; left: 0;
 
@@ -8,7 +10,7 @@ header
 	height: $headerHeight;
 	line-height: $headerHeight;
 
-	padding: 0 10px;
+	padding: 0 0 0 10px;
 
 	@include clearfix;
 
@@ -27,6 +29,40 @@ header
 		{
 			display: inline-block;
 			line-height: $headerHeight;
+
+			a
+			{
+				display: block;
+
+				color: WHITE;
+				text-decoration: none;
+
+				padding: 0 10px;
+
+				&.settings
+				{
+					padding: 0 25px;
+				}
+
+				&:hover
+				{
+					color: $orange;
+					background: darken($darkGray, 20);
+				}
+			}
+		}
+	}
+
+	.logo
+	{
+		float: left;
+
+		color: WHITE;
+		text-decoration: none;
+
+		&:hover
+		{
+			color: $orange;
 		}
 	}
 }

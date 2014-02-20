@@ -2,5 +2,17 @@
 @import "layout";
 @import "header";
 @import "sidebar";
+@import "module";
+@import "alert";
+@import "form";
+@import "table";
 
 @import "fonts/icons/style.css";
+
+a
+{
+	&:hover
+	{
+		color: $orange;
+	}
+}

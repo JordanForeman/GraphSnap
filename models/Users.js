@@ -10,7 +10,10 @@ var mongoose = require('mongoose'),
 			default: Date.now
 		},
 
-		role: String
+		roles: [{
+			type: String,
+			default: 'user'
+		}]
 
 	});
 
@@ -18,6 +21,10 @@ userSchema.plugin(passportLocalMongoose,
 {
 	usernameField: 'email',
 });
+
+userSchema.methods.isAdmin = function(){
+	return this.user.roles.indexOf("admin") >= 0;
+};
 
 User = mongoose.model('user', userSchema);
 

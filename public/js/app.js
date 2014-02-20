@@ -40,10 +40,10 @@ var app = {
 			{
 				var inputType = fields[i].dataType.toLowerCase();
 				var inputName = fields[i].name.replace(/\s+/g, '-').toLowerCase();
-				var label = '<label>' + fields[i].name + '</label>';
-				var input = '<input type="' + inputType + '" name="' + inputName + '">';
+				// var label = '<label>' + fields[i].name + '</label>';
+				var input = '<label>' + fields[i].name + '<input type="' + inputType + '" name="' + inputName + '"></label>';
 
-				createProductForm.append(label);
+				// createProductForm.append(label);
 				createProductForm.append(input);
 				createProductForm.append('<br>');
 			}

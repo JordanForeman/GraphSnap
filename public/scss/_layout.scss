@@ -1,11 +1,44 @@
-[class^='grid-']
+*{
+	box-sizing: border-box;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+[class^='grid-']:not(.grid-row)
 {
-	float: left;
+	display: table-cell;
+}
+
+.grid-row
+{
+	display: table;
+	table-layout: fixed;
+	border-spacing: 10px;
+
+	width: 100%;
+
+	margin: -10px -10px 0px -10px;
 }
 
 .container
 {
 	width: 100%;
+
+	&.loggedIn
+	{
+		padding-left: 10 + $sidebarWidthFull;
+		padding-top: 10 + $headerHeight;
+
+		@include breakpoint(baby-bear) {
+			padding-left: 10 + $sidebarWidthSmall;
+		}
+	}
+
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .grid

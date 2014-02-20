@@ -1,9 +1,11 @@
 //Colors
-$darkGray: DARKGRAY;
+$darkGray: #272727;
+$whiteGray: rgba(255, 255, 255, .6);
+$orange: #FFA366;
 
 //Numbers
-$headerHeight: 50px;
-$sidebarWidthFull: 150px;
+$headerHeight: 65px;
+$sidebarWidthFull: 175px;
 $sidebarWidthSmall: 45px;
 
 //Mixins
@@ -14,4 +16,32 @@ $sidebarWidthSmall: 45px;
 		display: table;
 		clear: both;
 	}
+}
+
+@mixin buttonBase {
+	padding: 8px 10px;
+	background: WHITE;
+	border: 1px solid lightgray;
+
+	color: gray;
+
+	border-radius: 4px;
+
+	&:hover
+	{
+		color: WHITE;
+		background: lightgray;
+	}
+}
+
+@mixin breakpoint($point) {
+  @if $point == papa-bear {
+    @media (max-width: 1600px) { @content; }
+  }
+  @else if $point == mama-bear {
+    @media (max-width: 1250px) { @content; }
+  }
+  @else if $point == baby-bear {
+    @media (max-width: 650px)  { @content; }
+  }
 }
