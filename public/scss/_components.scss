@@ -1,0 +1,24 @@
+.btn
+{
+	@include buttonBase(white);
+}
+
+.btn-small
+{
+	font-size: .6em;
+}
+
+.btn-orange
+{
+	@include buttonBase($orange);
+}
+
+.btn-green
+{
+	@include buttonBase($green);
+}
+
+.btn-gray
+{
+	@include buttonBase($whiteGray);
+}

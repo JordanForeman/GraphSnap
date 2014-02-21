@@ -9,3 +9,19 @@ td, th
 	padding: 0.5rem;
 	text-align: left;
 }
+
+td
+{
+	padding: 15px 5px;
+}
+
+th
+{
+	background: $darkGray;
+	color: $orange;
+
+	&:not(:empty)
+	{
+		border-color: $whiteGray;
+	}
+}

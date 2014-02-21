@@ -6,11 +6,19 @@
 @import "alert";
 @import "form";
 @import "table";
+@import "home";
+@import "components";
 
 @import "fonts/icons/style.css";
 
+* {
+	font-weight: 300;
+}
+
 a
 {
+	text-decoration: none;
+
 	&:hover
 	{
 		color: $orange;

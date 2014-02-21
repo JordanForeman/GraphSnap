@@ -1,4 +1,4 @@
-<h2>Product Types <a href="ProductType/CreateNew" class="btn btn-default">Create New</a></h2>
+<h2>Product Types <a href="ProductType/CreateNew" class="btn btn-small btn-gray">Create New</a></h2>
 {{#if productTypes}}
 	<table class="table table-striped">
 		<thead>
@@ -14,8 +14,8 @@
 			<tr>
 				<td><a href="ProductType/{{_id}}">{{productTypeName}}</a></td>
 				<td>{{ customFieldTypes.length }}</td>
-				<td><a class="btn btn-success" href="Products/{{_id}}/CreateNew">Add Instance</a></td>
-				<td><a class="btn btn-default" href="ProductType/{{_id}}/AddField">Add Field</a></td>
+				<td><a class="btn btn-green" href="Products/{{_id}}/CreateNew">Add Instance</a></td>
+				<td><a class="btn btn-gray" href="ProductType/{{_id}}/AddField">Add Field</a></td>
 			</tr>
 	{{/each}}
 		</tbody>
@@ -26,7 +26,7 @@
 
 <hr>
 
-<h2>Products <a class="btn btn-default" href="Products/CreateNew">Create New</a></h2>
+<h2>Products <a class="btn btn-small btn-gray" href="Products/CreateNew">Create New</a></h2>
 {{#if products }}
 	{{#each products}}
 	<h4>Instances of {{productType.productTypeName}}</h4>
@@ -35,7 +35,7 @@
 		<thead>
 			<tr>
 				{{#each customFields}}
-				<td>{{name}}</td>
+				<th>{{name}}</th>
 				{{/each}}
 			</tr>
 		</thead>
@@ -48,7 +48,6 @@
 		</tr>
 		</tbody>
 	</table>
-	<a href="/Products/{{id}}/CreateNew">Create a new {{productType.productTypeName}} instance</a>
 	{{/each}}
 {{else}}
 <p>No Products found - <a href="Products/CreateNew">Create A Product</a></p>

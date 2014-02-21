@@ -1,7 +1,8 @@
 //Colors
 $darkGray: #272727;
-$whiteGray: rgba(255, 255, 255, .6);
+$whiteGray: #BDBDBD;
 $orange: #FFA366;
+$green: rgb(15, 200, 67);
 
 //Numbers
 $headerHeight: 65px;
@@ -18,19 +19,20 @@ $sidebarWidthSmall: 45px;
 	}
 }
 
-@mixin buttonBase {
+@mixin buttonBase($color) {
 	padding: 8px 10px;
-	background: WHITE;
-	border: 1px solid lightgray;
+	background: $color;
+	border: none;
+	// border: 1px solid darken($color, 20);
 
-	color: gray;
+	color: WHITE;
 
 	border-radius: 4px;
 
 	&:hover
 	{
 		color: WHITE;
-		background: lightgray;
+		background: darken($color, 20);
 	}
 }
 

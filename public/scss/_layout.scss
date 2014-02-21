@@ -58,3 +58,24 @@ ul {
 .grid-4-5 { width: 80%; }
 .grid-1-6 { width: 16.666%; }
 .grid-5-6 { width: 83.33%; }
+
+.clear
+{
+	@include clearfix;
+
+	vertical-align: middle;
+}
+
+.clear-left
+{
+	*{
+		float: left;
+	}
+}
+
+.clear-right
+{
+	*{
+		float: right;
+	}
+}

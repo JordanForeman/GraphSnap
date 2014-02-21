@@ -80,11 +80,9 @@ db.on('open', function(){
 	app.get('/', function(req, res){
 		//TODO: redirect to dashboard if authenticated
 		if (req.user)
-			console.log("logged in");
+			res.render('dashboard', { user: req.user });
 		else
-			console.log("not logged in");
-
-		res.render('home', { user: req.user });
+			res.render('index');
 	});
 
 	app.listen(config.port);

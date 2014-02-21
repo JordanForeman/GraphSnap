@@ -1,20 +1,22 @@
+input
+{
+	display: block;
+	width: 100%;
+
+	padding: 5px 2px;
+	margin-top: 5px;
+
+	border: 1px solid lightgray;
+	padding: 10px 8px;
+
+	border-radius: 5px;
+
+	color: $orange;
+}
+
 label
 {
 	display: block;
-
-	input
-	{
-		display: block;
-		width: 100%;
-
-		padding: 5px 2px;
-		margin-top: 5px;
-
-		border: 1px solid lightgray;
-		padding: 10px 8px;
-
-		border-radius: 5px;
-	}
 }
 
 .chosen-container
@@ -26,12 +28,35 @@ input[type="submit"]
 {
 	float: right;
 
-	@include buttonBase;
+	@include buttonBase($whiteGray);
 }
 
 .form
 {
 	padding: 10px;
+
+	@include clearfix;
+}
+
+.form-login
+{
+
+}
+
+.form-login-home
+{
+	background: url('../images/tweed.png') $darkGray;
+
+	line-height: 1.8em;
+
+	box-shadow: 0 0 0 2px BLACK,
+				0 0 0 5px $whiteGray,
+				0 0 10px $darkGray;
+
+	a { 
+		color: $orange;
+		line-height: 3.3em;
+	}
 }
 
 .form-danger
