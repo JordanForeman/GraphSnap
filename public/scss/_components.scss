@@ -1,6 +1,6 @@
 .btn
 {
-	@include buttonBase(white);
+	@include buttonBase($darkGray);
 }
 
 .btn-small
@@ -20,5 +20,5 @@
 
 .btn-gray
 {
-	@include buttonBase($whiteGray);
+	@include buttonBase($medGray);
 }

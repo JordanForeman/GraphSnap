@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
 
 		value: {
 			type: Schema.Types.Mixed,
-			required: true
+			default: null
 		},
 
 		productId: {

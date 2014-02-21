@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
 	CustomFieldType = require("../models/CustomFieldType"),
+	Product = require("../models/Product"),
+	CustomField = require("../models/CustomField"),
 	ProductType = require("../models/ProductType");
 
 // TODO:
@@ -70,6 +72,25 @@ module.exports = function(app){
 			prodType.save(function(err){
 				if (err) console.log(err);
 			});
+
+			Product.find({productType : prodType})
+					.populate('customFields')
+					.exec(function(err, products){
+
+						for (var i = 0; i < products.length; i++)
+						{
+							var newField = new CustomField;
+							newField.productId = products[i];
+							newField.value = null;
+							newField.customFieldType = cft;
+							newField.name = cft.name;
+
+							newField.save();
+
+							products[i].customFields.push(newField._id);
+						}
+
+					});
 		});
 
 		cft.save(function(err){

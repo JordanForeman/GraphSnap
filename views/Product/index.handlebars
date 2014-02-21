@@ -43,7 +43,16 @@
 		<tbody>
 		<tr>
 			{{#each customFields}}
-			<td>{{value}}</td>
+			<td>
+				{{#if value}}
+					{{value}}
+				{{else}}
+					<form method="POST" action="updateField">
+						<input type="hidden" value="{{_id}}">
+						<input type="{{type}}" required >
+					</form>
+				{{/if}}
+			</td>
 			{{/each}}
 		</tr>
 		</tbody>

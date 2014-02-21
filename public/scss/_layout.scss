@@ -45,6 +45,12 @@ ul {
 {
 	width: 100%;
 	@include clearfix;
+
+	&.width-50
+	{
+		width: 50%;
+		margin: 0 auto;
+	}
 }
 
 .grid-1-2, .grid-2-4, .grid-3-6 { width: 50%; }

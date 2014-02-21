@@ -1,4 +1,4 @@
-input
+input:not([type="submit"])
 {
 	display: block;
 	width: 100%;
@@ -28,7 +28,7 @@ input[type="submit"]
 {
 	float: right;
 
-	@include buttonBase($whiteGray);
+	@include buttonBase($medGray);
 }
 
 .form
@@ -40,6 +40,11 @@ input[type="submit"]
 
 .form-login
 {
+
+	a
+	{
+		color: $orange;
+	}
 
 }
 
@@ -54,7 +59,6 @@ input[type="submit"]
 				0 0 10px $darkGray;
 
 	a { 
-		color: $orange;
 		line-height: 3.3em;
 	}
 }
@@ -112,4 +116,13 @@ input[type="submit"]
 		border: $border;
 		border: none;
 	}
+}
+
+.base-form-container
+{
+	background: $whiteGray;
+	padding: 20px 15px;
+	padding-top: 1px;
+	border-radius: 5px;
+	margin-top: 20px !important;
 }
