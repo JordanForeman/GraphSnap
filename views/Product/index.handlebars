@@ -1,4 +1,4 @@
-<h2>Product Types <a href="ProductType/CreateNew" class="btn btn-small btn-gray">Create New</a></h2>
+<h2>Products <a href="ProductType/CreateNew" class="btn btn-small btn-gray">Create New</a></h2>
 {{#if productTypes}}
 	<table class="table table-striped">
 		<thead>
@@ -14,7 +14,7 @@
 			<tr>
 				<td><a href="ProductType/{{_id}}">{{productTypeName}}</a></td>
 				<td>{{ customFieldTypes.length }}</td>
-				<td><a class="btn btn-green" href="Products/{{_id}}/CreateNew">Add Instance</a></td>
+				<td><a class="btn btn-green" href="Products/{{_id}}/CreateNew">Add Data Point</a></td>
 				<td><a class="btn btn-gray" href="ProductType/{{_id}}/AddField">Add Field</a></td>
 			</tr>
 	{{/each}}
@@ -26,20 +26,21 @@
 
 <hr>
 
-<h2>Products <a class="btn btn-small btn-gray" href="Products/CreateNew">Create New</a></h2>
+<h2>Data <a class="btn btn-small btn-gray" href="Products/CreateNew">Create New</a></h2>
 {{#if products }}
-	{{#each products}}
-	<h4>Instances of {{productType.productTypeName}}</h4>
+	<h4>{{products.0.productType.productTypeName}} Data Points</h4>
 	<table>
-		{{#if customFields}}
-		<thead>
-			<tr>
-				{{#each customFields}}
-				<th>{{name}}</th>
-				{{/each}}
-			</tr>
-		</thead>
-		{{/if}}
+	{{#if products.0.customFields}}
+	<thead>
+		<tr>
+			{{#each products.0.customFields}}
+			<th>{{name}}</th>
+			{{/each}}
+		</tr>
+	</thead>
+	{{/if}}
+
+	{{#each products}}
 		<tbody>
 		<tr>
 			{{#each customFields}}
@@ -49,15 +50,15 @@
 				{{else}}
 					<form method="POST" action="updateField">
 						<input type="hidden" value="{{_id}}">
-						<input type="{{type}}" required >
+						<input type="{{customFieldType}}" required >
 					</form>
 				{{/if}}
 			</td>
 			{{/each}}
 		</tr>
-		</tbody>
-	</table>
 	{{/each}}
+		</tbody>
+	</table>	
 {{else}}
 <p>No Products found - <a href="Products/CreateNew">Create A Product</a></p>
 {{/if}}

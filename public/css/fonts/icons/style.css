@@ -1,0 +1,43 @@
+@font-face {
+	font-family: 'graphsnap';
+	src:url('fonts/graphsnap.eot?-2zj76d');
+	src:url('fonts/graphsnap.eot?#iefix-2zj76d') format('embedded-opentype'),
+		url('fonts/graphsnap.woff?-2zj76d') format('woff'),
+		url('fonts/graphsnap.ttf?-2zj76d') format('truetype'),
+		url('fonts/graphsnap.svg?-2zj76d#graphsnap') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'graphsnap';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+	content: "\e600";
+}
+.icon-folder:before {
+	content: "\e62e";
+}
+.icon-cog2:before {
+	content: "\e690";
+}
+.icon-user:before {
+	content: "\e670";
+}
+.icon-pie:before {
+	content: "\e695";
+}
+.icon-copy2:before {
+	content: "\e628";
+}

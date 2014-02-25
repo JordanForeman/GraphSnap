@@ -1,0 +1,39 @@
+<div class="grid-row">
+	<form class="grid-2-3" role="form" id="createChartForm" method="POST" action="">
+		
+		{{#if productType}}
+		{{else}}	
+		<p class="well">What type of product are we charting?</p>
+		<div class="form-group">
+			<label for="productType">Product Type</label>
+			<select onchange="app.selectProductTypeForChart(event)" class="chosen form-control" name="productType" id="productType">
+				<option value="0">-- Select a Product Type --</option>
+				{{#each productTypes}}
+					<option value="{{_id}}">{{productTypeName}}</option>
+				{{/each}}
+			</select>
+		</div>
+		<br />
+
+		<div id="customFieldXDiv" style="display: none;" class="form-group grid-1-2">
+			<label for="customFieldX">X Field</label>
+			<select onchange="chart.updateChartXField(event)" class="chosen form-control" name="customFieldX" id="customFieldX">
+				<option>-- Select A Field --</option>
+			</select>
+		</div>
+
+		<div id="customFieldYDiv" style="display: none;" class="form-group grid-1-2">
+			<label for="customFieldY">Y Field</label>
+			<select onchange="chart.updateChartYField(event)" class="chosen form-control" name="customFieldY" id="customFieldY">
+				<option>-- Select A Field --</option>
+			</select>
+		</div>
+		{{/if}}
+	</form>
+</div>
+
+<div class="grid-row">
+	<canvas id="myChart" width="500" height="500">
+		Your browser does not support this functionality. Please try again in a newer browser.
+	</canvas>
+</div>

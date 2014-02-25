@@ -26,6 +26,36 @@ var app = {
 		}
 	},
 
+	selectProductTypeForChart: function(event){
+
+		var customFieldX = $('#customFieldX');
+		var customFieldY = $('#customFieldY');
+
+		var selectedIndex = event.target.selectedIndex;
+		var selectedValue = event.target[selectedIndex].value;
+
+		$.get('/api/CustomFieldTypes/' + selectedValue, function(data){
+
+			for (var i = 0; i < data.length; i++)
+			{
+				var option = ['<option value="', 
+								data[i]._id, 
+								'">', 
+								data[i].name, 
+								'</option>'].join('');
+
+				customFieldX.append(option);
+				customFieldX.trigger("chosen:updated");
+				$('#customFieldXDiv').show();
+				
+				customFieldY.append(option);
+				customFieldY.trigger("chosen:updated");
+				$('#customFieldYDiv').show();
+			}
+		});
+
+	},
+
 	selectProductTypeToMake: function(event){
 		var selectedIndex = event.target.selectedIndex;
 		var selectedValue = event.target[selectedIndex].value;
@@ -33,7 +63,6 @@ var app = {
 		var createProductForm = $('#createNewProductForm');
 
 		$.get('/api/ProductTypes/' + selectedValue, function(data){
-			console.log(data);
 
 			var fields = data.customFieldTypes;
 			for(var i = 0; i < fields.length; i++)
@@ -53,6 +82,69 @@ var app = {
 			// createProductForm.show();
 		});
 
+	},
+
+};
+
+var chart = {
+
+	getContext: function(){
+
+		return document.getElementById("myChart").getContext('2d');
+
+	},
+
+	updateChartXField: function(event){
+
+		var data = {
+			labels : ["January","February","March","April","May","June","July"],
+			datasets : [
+				{
+					fillColor : "rgba(220,220,220,0.5)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					data : [65,59,90,81,56,55,40]
+				},
+				{
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					data : [28,48,40,19,96,27,100]
+				}
+			]
+		};
+
+		var context = this.getContext();
+		var theChart = new Chart(context).PolarArea(data);
+
+	},
+
+	updateChartYField: function(event){
+
+		var data = {
+			labels : ["January","February","March","April","May","June","July"],
+			datasets : [
+				{
+					fillColor : "rgba(220,220,220,0.5)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					data : [65,59,90,81,56,55,40]
+				},
+				{
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					data : [28,48,40,19,96,27,100]
+				}
+			]
+		};
+
+		var context = this.getContext();
+		var theChart = new Chart(context).PolarArea(data);
 	},
 
 };

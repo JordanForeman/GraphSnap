@@ -49,10 +49,12 @@ require('./controllers/Auth')(app);
 require('./controllers/Users')(app);
 require('./controllers/Product')(app);
 require('./controllers/ProductType')(app);
+require('./controllers/Chart')(app);
 
 /* API */
 require('./api/api')(app);
 require('./api/ProductType')(app);
+require('./api/CustomFieldTypes')(app);
 
 /* Connect */
 var host = config.dbHost || ("mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName);
