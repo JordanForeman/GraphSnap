@@ -16,6 +16,9 @@ module.exports = function (app) {
 	});
 
 	app.get('/register', function(req, res){
+		res.render('email-signup');
+		return;
+
 		var view = new View(res, 'register');
 		console.log('Register Pageview');
 		view.render({ title: 'Register' });

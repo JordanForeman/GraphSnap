@@ -50,16 +50,31 @@ input[type="submit"]
 
 .form-login-home
 {
-	background: url('../images/tweed.png') $darkGray;
+	display: table;
+	width: 100%;
 
+	background: $darkGray;
 	line-height: 1.8em;
-
-	box-shadow: 0 0 0 2px BLACK,
-				0 0 0 5px $whiteGray,
-				0 0 10px $darkGray;
 
 	a { 
 		line-height: 3.3em;
+	}
+
+	@include breakpoint(baby-bear){
+		padding: 15px 0;
+	}
+
+	.input-group
+	{
+		display: table-cell;
+		padding: 0 10px;
+
+		@include breakpoint(baby-bear)
+		{
+			display: block;
+			width: 90%;
+			margin: 0 auto;
+		}
 	}
 }
 

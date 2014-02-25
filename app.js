@@ -79,6 +79,10 @@ db.on('open', function(){
 		res.render('login');
 	});
 
+	app.get('/attribution', function(req, res){
+		res.render('attribution');
+	});
+
 	app.get('/', function(req, res){
 		//TODO: redirect to dashboard if authenticated
 		if (req.user)

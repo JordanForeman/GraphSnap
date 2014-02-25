@@ -8,6 +8,8 @@
 @import "table";
 @import "home";
 @import "components";
+@import "type";
+@import "footer";
 
 @import "fonts/icons/style.css";
 
@@ -28,4 +30,9 @@ a
 	{
 		color: $orange;
 	}
+}
+
+img
+{
+	max-width: 100%;
 }

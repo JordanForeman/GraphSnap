@@ -24,6 +24,8 @@ var app = {
 			if (ctx)
 				var myNewChart = new Chart(ctx).Line(data);
 		}
+
+		$("#home-splash").css("height", window.height);
 	},
 
 	selectProductTypeForChart: function(event){

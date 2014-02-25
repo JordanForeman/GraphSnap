@@ -7,16 +7,16 @@ ul {
 	margin: 0;
 }
 
-[class^='grid-']:not(.grid-row)
+[class^="grid-"]:not(.grid-row)
 {
 	display: table-cell;
+	vertical-align: middle;
 }
 
 .grid-row
 {
-	display: table;
-	table-layout: fixed;
-	border-spacing: 10px;
+
+	display: table-row;
 
 	width: 100%;
 
@@ -36,13 +36,14 @@ ul {
 			padding-left: 10 + $sidebarWidthSmall;
 		}
 	}
-
-	padding-left: 10px;
-	padding-right: 10px;
 }
 
 .grid
 {
+	display: table;
+	table-layout: fixed;
+	border-spacing: 10px;
+
 	width: 100%;
 	@include clearfix;
 
@@ -50,6 +51,8 @@ ul {
 	{
 		width: 50%;
 		margin: 0 auto;
+
+		@include breakpoint(baby-bear){ padding-left: 35px; width: 100%; }
 	}
 }
 
