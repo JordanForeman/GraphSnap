@@ -33,6 +33,10 @@ catch(e)
 
 		});
 
+		productSchema.methods.getProductsOfType = function(productTypeId){
+			
+		};
+
 		Product = mongoose.model('product', productSchema);
 	}
 }

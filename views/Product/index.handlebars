@@ -42,16 +42,17 @@
 
 	{{#each products}}
 		<tbody>
-		<tr>
+		<tr data-productId="{{_id}}">
 			{{#each customFields}}
 			<td>
 				{{#if value}}
 					{{value}}
 				{{else}}
-					<form method="POST" action="updateField">
-						<input type="hidden" value="{{_id}}">
-						<input type="{{customFieldType}}" required >
-					</form>
+					<input  type="{{customFieldType.dataType}}"
+							class="dataInput"
+							data-id="{{_id}}"
+							on="Data.updateCustomField(event)"
+							required >
 				{{/if}}
 			</td>
 			{{/each}}

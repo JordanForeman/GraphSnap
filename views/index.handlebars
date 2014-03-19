@@ -122,23 +122,23 @@
 
 	<h2>Get in Touch</h2>
 
-	<form id="home-contactForm" class="grid-1-2 condensed" method="POST" action="/Contact">
+	<div id="home-contactForm" class="grid-1-2 condensed">
 
 		<p style="margin-top: -20px; padding-bottom: 20px;">Interested in trying our product? Let us know!</p>
 
 		<label for="home-contactForm-email">Your Email 
-		<input id="home-contactForm-email" type="email" placeholder="Email">
+		<input id="home-contactForm-email" name="fromEmail" type="email" placeholder="Email" required>
 		</label>
 
 		<label for="home-contactForm-message">Message
-		<textarea id="home-contactForm-message" placeholder="Message"></textarea>
+		<textarea id="home-contactForm-message" id="emailMessage" placeholder="Message" required></textarea>
 		</label>
 
 		<br />
 
-		<input type="submit" class="btn-orange" value="Contact Us">
+		<button onclick="contact.sendMsg()" class="btn-orange">Contact Us</button>
 
-	</form>
+	</div>
 
 	<div class="grid-1-2 condensed">
 
@@ -189,6 +189,38 @@ var route = function(){
 	return {
 		login : login
 	};
+}();
+
+var contact = function(){
+
+	var sendMsg = function(){
+		var fromEmail = $("#home-contactForm-email").val(),
+			message = $("#home-contactForm-message").val();
+
+
+		$.ajax({
+			type: "POST",
+			url: "/Contact",
+			data: {
+				from: fromEmail,
+				msg: message,
+				success: function(data, textStatus, jqXHR){
+					return console.log(data + " " + textStatus);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+					return console.log(errorThrown + " " + textStatus);
+				},
+				dataType: "json"
+			}
+		});
+
+		return false;
+	};
+
+	return {
+		sendMsg : sendMsg
+	};
+
 }();
 
 </script>

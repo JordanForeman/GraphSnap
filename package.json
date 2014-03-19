@@ -10,7 +10,8 @@
     "passport-local": "latest",
     "passport-local-mongoose": "latest",
     "mongoose": "latest",
-    "connect-ensure-login": "latest"
+    "connect-ensure-login": "latest",
+    "sendgrid": "~1.0.2"
   },
   "devDependencies": {
     "grunt": "latest",

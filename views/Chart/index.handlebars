@@ -16,18 +16,18 @@
 		<br />
 
 		<div id="customFieldXDiv" style="display: none;" class="form-group grid-1-2">
-			<label for="customFieldX">X Field</label>
-			<select onchange="chart.updateChartXField(event)" class="chosen form-control" name="customFieldX" id="customFieldX">
+			<label for="customFieldX">What Field are we charting?</label>
+			<select onchange="chart.updateOrCreateChart()" class="chosen form-control" name="customFieldX" id="customFieldX">
 				<option>-- Select A Field --</option>
 			</select>
 		</div>
 
-		<div id="customFieldYDiv" style="display: none;" class="form-group grid-1-2">
+		{{!-- <div id="customFieldYDiv" style="display: none;" class="form-group grid-1-2">
 			<label for="customFieldY">Y Field</label>
 			<select onchange="chart.updateChartYField(event)" class="chosen form-control" name="customFieldY" id="customFieldY">
 				<option>-- Select A Field --</option>
 			</select>
-		</div>
+		</div> --}}
 		{{/if}}
 	</form>
 </div>

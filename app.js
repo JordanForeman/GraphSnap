@@ -50,11 +50,14 @@ require('./controllers/Users')(app);
 require('./controllers/Product')(app);
 require('./controllers/ProductType')(app);
 require('./controllers/Chart')(app);
+require('./controllers/Mail')(app);
 
 /* API */
 require('./api/api')(app);
 require('./api/ProductType')(app);
 require('./api/CustomFieldTypes')(app);
+require('./api/Product.js')(app);
+require('./api/CustomField.js')(app);
 
 /* Connect */
 var host = config.dbHost || ("mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName);
