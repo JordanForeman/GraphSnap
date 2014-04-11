@@ -91,7 +91,7 @@ db.on('open', function(){
 		if (req.user)
 			res.render('dashboard', { user: req.user });
 		else
-			res.render('index');
+			res.render('index', {layout: 'landing'});
 	});
 
 	app.listen(config.port);
