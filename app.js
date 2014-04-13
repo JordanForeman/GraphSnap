@@ -22,8 +22,8 @@ app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
-app.use(express.session({cookie: { 
-  expires: new Date(Date.now() + 60 * 10000), 
+app.use(express.session({cookie: {
+  expires: new Date(Date.now() + 60 * 10000),
   maxAge: 60*10000
 }}));
 app.use(passport.initialize());
@@ -79,7 +79,8 @@ db.on('open', function(){
 	});
 
 	app.get('/login', function(req, res){
-		res.render('login');
+		console.log("login page");
+		res.render('login', {layout: 'landing'});
 	});
 
 	app.get('/attribution', function(req, res){

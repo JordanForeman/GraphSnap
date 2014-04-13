@@ -1,25 +1,4 @@
-	<header>
-		<div class="sloganContainer">
-			<h1 class="logo">
-				GraphSnap
-			</h1>
-			<h2 class="slogan">
-				A Brand New Way To Visualize Your Data
-			</h2>
-		</div>
 
-		<nav class="nav-main">
-			<ul class="nav nav-header">
-				<li><a href="http://graphsnap.herokuapp.com">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Pricing</a></li>
-				<li><a href="/Login">Login</a></li>
-				<li><a href="/Register">Register</a></li>
-			</ul>
-		</nav>
-	</header>
-
-	<div class="container">
 
 		<section class="grid-row">
 			<h2 class="text-center">So Much Data, So Little Time</h2>
@@ -63,13 +42,13 @@
 				<h3 class="text-center">Accelerate Time to Decision</h3>
 				<p>Product waits on the dock. Trucks wait in the yard. The laboratory’s results are in but you still have to look over everything to make sure it’s safe to ship. Stop manually comparing your laboratory results to your customers' specifications. GraphSnap will quickly evaluate the results and alert you to any issues.</p>
 			</div>
-			
+
 			<div class="grid-1-3">
 				<img class="block-center" src="images/cloudPowered.png" alt="" />
 				<h3 class="text-center">Powered by the Cloud</h3>
 				<p>Manage your data from anywhere with an internet connection. No software to install or configure. Just sign in and get to work.</p>
 			</div>
-			
+
 		</section>
 
 		<hr />
@@ -84,27 +63,8 @@
 				<p>Founded in 2013, GraphSnap aims to close the gap between a customer’s laboratory provider and in-house quality/manufacturing process. Our founders have years of experience in the commercial testing laboratory, food manufacturing, and software engineering industries. We decided there was a better way to handle laboratory data, and so GraphSnap was born.</p>
 			</div>
 		</section>
-	</div>
 
-	<footer>
-
-		<nav class="pull-left">
-			<ul class="nav nav-footer">
-				<li><a href="http://graphsnap.herokuapp.com">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Pricing</a></li>
-				<li><a href="/Login">Login</a></li>
-				<li><a href="/Register">Register</a></li>
-			</ul>
-		</nav>
-
-		<div class="pull-right text-right">
-			<p>GraphSnap is &copy; 2014 BioBacTrack</p>
-			<p><small>Handcrafted with <span style="color:rgb(223, 73, 99)">&hearts;</span> by <a href="http://betterthangreat.co">Better Than Great</a></small></p>
-		</div>
-	</footer>
-
-<script>
+<script type="text/javascript">
 
 var valid = function(){
 
@@ -112,7 +72,7 @@ var valid = function(){
 
 	var routeLogin = function(){
 		_attemptCount++;
-		
+
 		if (_attemptCount > 1)
 			route.login();
 	};
@@ -123,7 +83,7 @@ var valid = function(){
 }();
 
 var route = function(){
-	
+
 	var login = function(){
 		window.location = "/Login";
 	};

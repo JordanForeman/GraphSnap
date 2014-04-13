@@ -1,14 +1,13 @@
 var BaseController = require("./Base"),
 	View = require("../views/Base"),
 	passport = require('passport'),
+	config = require('../config')(),
 	User = require("../models/Users");
 
 module.exports = function (app) {
 
 	app.get('/login', function(req, res){
-		var view = new View(res, 'login');
-		view.render({ title: 'Login', user: req.user });
-		console.log('Login Pageview');
+		res.render('login', {layout: 'landing'});
 	});
 
 	app.post('/login', passport.authenticate('local'), function(req, res){
@@ -16,12 +15,11 @@ module.exports = function (app) {
 	});
 
 	app.get('/register', function(req, res){
-		res.render('email-signup');
-		return;
 
-		var view = new View(res, 'register');
-		console.log('Register Pageview');
-		view.render({ title: 'Register' });
+		if (config.mode === 'production')
+			return res.render('email-signup', {layout: 'landing'});
+
+		res.render('register', { title: 'Register', layout: 'landing' });
 	});
 
 	app.post('/register', function(req, res){
