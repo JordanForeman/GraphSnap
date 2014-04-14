@@ -1,38 +1,7 @@
 @import "bits";
 @import "layout";
-@import "header";
 @import "sidebar";
-@import "module";
+@import "user";
+@import "nav";
+@import "header";
 @import "alert";
-@import "form";
-@import "table";
-@import "home";
-@import "components";
-@import "type";
-@import "footer";
-
-@import "fonts/icons/style.css";
-
-* {
-	font-weight: 300;
-}
-
-p
-{
-	line-height: 1.5em;
-}
-
-a
-{
-	text-decoration: none;
-
-	&:hover
-	{
-		color: $orange;
-	}
-}
-
-img
-{
-	max-width: 100%;
-}

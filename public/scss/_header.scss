@@ -1,68 +1,37 @@
-header
-{
-	background: $darkGray;
+header {
+  position: fixed;
+  top: 0;
+  left: 0; right: 0;
 
-	position: fixed;
-	top: 0; left: 0;
+  display: block;
+  height: $headerHeight;
+  width: 100%;
 
-	display: block;
-	width: 100%;
-	height: $headerHeight;
-	line-height: $headerHeight;
+  background: WHITE;
+  color: $headerSecondaryColor;
+  border-bottom: 1px solid $headerSecondaryColor;
+  line-height: $headerHeight;
 
-	padding: 0 0 0 10px;
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
 
-	@include clearfix;
+  &.showingSidebar {
+    left: $sidebarWidth;
+  }
 
-	h1 { margin: 0; }
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: $headerSecondaryColor;
 
-	nav
-	{
-		float: right;
-	}
+    padding: 0 15px;
+  }
+}
 
-	.nav 
-	{
-		list-style-type: none;
-
-		li
-		{
-			display: inline-block;
-			line-height: $headerHeight;
-
-			a
-			{
-				display: block;
-
-				color: WHITE;
-				text-decoration: none;
-
-				padding: 0 10px;
-
-				&.settings
-				{
-					padding: 0 25px;
-				}
-
-				&:hover
-				{
-					color: $orange;
-					background: darken($darkGray, 20);
-				}
-			}
-		}
-	}
-
-	.logo
-	{
-		float: left;
-
-		color: WHITE;
-		text-decoration: none;
-
-		&:hover
-		{
-			color: $orange;
-		}
-	}
+#menuToggle {
+  display:inline-block;
+  border-right: 1px solid $headerSecondaryColor;
+  height: 100%;
 }

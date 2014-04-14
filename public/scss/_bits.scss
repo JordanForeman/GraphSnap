@@ -1,16 +1,17 @@
-//Colors
-$darkGray: #272727;
-$whiteGray: rgb(215, 215, 215);
-$medGray: #888;
-$orange: #FFA366;
-$green: rgb(15, 200, 67);
+$headerSecondaryColor: #CCC;
+$blue: #3454d2;
 
-//Numbers
-$headerHeight: 65px;
-$sidebarWidthFull: 175px;
-$sidebarWidthSmall: 45px;
+$headerHeight: 50px;
+$sidebarWidth: 250px;
 
-//Mixins
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.block-center { display: block; margin: 0 auto; }
+
+.pull-left { float: left; }
+.pull-right { float: right; }
+
 @mixin clearfix {
 	&:after
 	{
@@ -18,33 +19,4 @@ $sidebarWidthSmall: 45px;
 		display: table;
 		clear: both;
 	}
-}
-
-@mixin buttonBase($color) {
-	padding: 8px 10px;
-	background: $color;
-	border: none;
-	// border: 1px solid darken($color, 20);
-
-	color: WHITE;
-
-	border-radius: 4px;
-
-	&:hover
-	{
-		color: WHITE;
-		background: darken($color, 20);
-	}
-}
-
-@mixin breakpoint($point) {
-  @if $point == papa-bear {
-    @media (max-width: 1600px) { @content; }
-  }
-  @else if $point == mama-bear {
-    @media (max-width: 1250px) { @content; }
-  }
-  @else if $point == baby-bear {
-    @media (max-width: 650px)  { @content; }
-  }
 }

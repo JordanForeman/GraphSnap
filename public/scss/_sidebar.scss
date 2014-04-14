@@ -1,63 +1,35 @@
-.sidebar-main
-{
-	background: $darkGray;
+.sidebar {
+  position: absolute;
+  top: 0;
 
-	position: fixed;
-	top: $headerHeight;
-	bottom: 0;
-	left: 0;
+  display: inline-block;
+  width: 250px;
+  height: 100%;
 
-	display: block;
-	width: $sidebarWidthFull;
+  margin-left: -250px;
 
+  background: #363636;
 
+  color: rgb(228, 228, 228);
 
-	@include breakpoint(baby-bear) {
-		width: $sidebarWidthSmall;
-	}
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
 
-	.nav
-	{
-		list-style-type: none;
+  a {
+    font-size: .8em;
+    color: rgb(228, 228, 228);
+    text-decoration: none;
+    text-transform: uppercase;
 
-		li
-		{
-			display: block;
-			overflow: hidden;
-			white-space: nowrap;
+    display: block;
+  }
 
-			&:hover
-			{
-				background: darken($darkGray, 20);
+  &.visible {
+    margin-left: 0;
+  }
 
-				a{ color: $orange; }
-			}
+  @include clearfix;
 
-			a
-			{
-				display: block;
-				padding: 15px 5px;
-
-				text-decoration: none;
-				color: WHITE;
-
-				line-height: 30px;
-
-				i {
-					font-size: 1.6em;
-					vertical-align: middle;
-
-					padding: 4px;
-				}
-
-				span {
-					vertical-align: middle;
-
-					@include breakpoint(baby-bear) {
-						display: none;
-					}
-				}
-			}
-		}
-	}
 }

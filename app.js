@@ -78,17 +78,11 @@ db.on('open', function(){
 		Admin.run(req, res, next);
 	});
 
-	app.get('/login', function(req, res){
-		console.log("login page");
-		res.render('login', {layout: 'landing'});
-	});
-
 	app.get('/attribution', function(req, res){
 		res.render('attribution');
 	});
 
 	app.get('/', function(req, res){
-		//TODO: redirect to dashboard if authenticated
 		if (req.user)
 			res.render('dashboard', { user: req.user });
 		else

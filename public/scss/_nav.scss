@@ -1,0 +1,46 @@
+//Sidebar Styles
+nav.sidebar {
+  text-shadow: 0 0 2px #424242;
+}
+
+ul.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-sidebar {
+
+  li {
+    padding: 10px 31px;
+    border-left: 4px solid transparent;
+
+    &:hover {
+      background: #282828;
+      border-left-color: $blue;
+    }
+  }
+}
+
+.nav-section {
+
+  border-bottom: 1px solid #272727;
+
+  h3 {
+    font-size: .8em;
+    padding: 0 35px;
+    color: #a3a2a2;
+  }
+
+}
+
+//Header Styles
+.nav-header {
+
+  li {
+    line-height: $headerHeight;
+    display: inline-block;
+
+    border-left: 1px solid $headerSecondaryColor;
+  }
+}
