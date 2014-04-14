@@ -14,11 +14,17 @@ body, html {
 }
 
 .container {
+
 	max-width: 1020px;
 	width: 100%;
 
 	padding: 0 25px;
 	margin: 25px auto;
+
+	transition: all .3s ease-in-out;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
 }
 
 [class^="grid-"]:not(.grid-row) {

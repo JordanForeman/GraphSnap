@@ -45,6 +45,7 @@ var GS_UI = function() {
 
   this.sidebar = document.getElementById("sidebar");
   this.header = document.getElementById("main-header");
+  this.container = document.getElementById("main-container");
   this.helper = new CSSHelper();
 
 };
@@ -52,6 +53,7 @@ var GS_UI = function() {
 GS_UI.prototype.toggleSidebar = function() {
   this.helper.toggleClass(this.sidebar, 'visible');
   this.helper.toggleClass(this.header, 'showingSidebar');
+  this.helper.toggleClass(this.container, 'showingSidebar');
 };
 
 var UI = new GS_UI();
