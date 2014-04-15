@@ -20,6 +20,12 @@ catch(e)
 				ref: 'profile'
 			},
 
+			value: {
+				type: Number,
+				required: true,
+				default: 0
+			},
+
 			customIdentifiers: [{
 				type: String
 			}],

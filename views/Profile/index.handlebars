@@ -1,9 +1,14 @@
-<h2>Profiles</h2>
+<h2 class="title">Profiles
+<a href="Profile/CreateNew" class="btn btn-small pull-right">Create New</a></h2>
 {{#if profiles}}
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Name</th>
+				<th>Identifiers</th>
+				<th>Data Points</th>
+				<th>Tests</th>
+				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -12,13 +17,16 @@
 	{{#each profiles}}
 			<tr>
 				<td><a href="Profile/{{_id}}">{{name}}</a></td>
-				<td><a class="btn btn-success" href="Profile/CreateNew?ptid={{_id}}">Add Instance</a></td>
-				<td><a class="btn btn-default" href="DataPoint/AddField?ptid={{_id}}">Add Field</a></td>
+				<td>{{customIdentifiers.length}}</td>
+				<td>{{dataPoints.length}}</td>
+				<td>{{tests.length}}</td>
+				<td><a class="btn btn-small" href="DataPoint/CreateNew/{{_id}}">Add Data Point</a></td>
+				<td><a class="btn btn-small" href="Profile/AddIdentifier/{{_id}}">Add Identifier</a></td>
+				<td><a class="btn btn-small" href="Test/CreateNew/{{_id}}">Add Test</a></td>
 			</tr>
 	{{/each}}
 		</tbody>
 	</table>
-	<a href="Profile/CreateNew" class="btn btn-default">Create New</a>
 {{else}}
 <p>No Profiles found - <a href="Profile/CreateNew">Create A Profile</a></p>
 {{/if}}

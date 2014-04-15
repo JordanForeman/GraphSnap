@@ -8,7 +8,7 @@ module.exports = function(app){
 		if(!req.user)
 			res.redirect('/');
 
-		Profile.find({}, function(err, profiles){
+		Profile.find({company: req.user.company}, function(err, profiles){
 			if (err){
 				console.log(err);
 				res.redirect('/');
@@ -32,6 +32,9 @@ module.exports = function(app){
 
 		var profile = new Profile;
 		profile.name = req.body.profileName;
+		console.log(req.user.company);
+		profile.customIdentifiers.push("ID");
+		profile.company = req.user.company;
 		profile.save(function(err){
 			if (err) console.log(err);
 		});
@@ -39,10 +42,15 @@ module.exports = function(app){
 	});
 
 	app.get('/Profile/:id', function(req, res){
-		Profile.findById(req.params.id, function(err, profile){
+		if (!req.user)
+			res.redirect('/');
+
+		Profile.findById(req.params.id)
+		.populate('dataPoints')
+		.exec(function(err, profile){
 			if (err){
 				console.log(err);
-				res.redirect("/DataPoints");
+				res.redirect("/Profiles");
 			} else {
 				res.render("Profile/single", {profile: profile});
 			}
@@ -50,10 +58,13 @@ module.exports = function(app){
 	});
 
 	app.get('/Profile/AddIdentifier/:id', function(req, res){
-		Profile.findById(req.params.id, function(err, prodType){
+		if (!req.user)
+			res.redirect('/');
+
+		Profile.findById(req.params.id, function(err, profile){
 			if (err){
 				console.log(err);
-				return res.redirect("/DataPoints");
+				return res.redirect("/Profiles");
 			}
 
 			res.render("Profile/AddIdentifier", {profile : profile})
@@ -65,6 +76,7 @@ module.exports = function(app){
 		Profile.findById(req.body.profileId, function(err, profile){
 
 			profile.customIdentifiers.push(req.body.name);
+			profile.save();
 
 			DataPoint.find({profile : profile})
 			.exec(function(err, dataPoints){
@@ -72,6 +84,7 @@ module.exports = function(app){
 				for (var i = 0; i < dataPoints.length; i++)
 				{
 					dataPoints[i].customIdentifiers.push(null);
+					dataPoints[i].save();
 				}
 
 			});

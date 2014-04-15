@@ -1,5 +1,6 @@
-<form class="row" role="form" id="AddIdentifierToProfileForm" method="POST" action="AddIdentifer">
+<h2 class="title">New Identifier for <a href="/Profile/{{profile._id}}">{{profile.name}}</a></h2>
 
+<form class="row" role="form" id="AddIdentifierToProfileForm" method="POST" action="/Profile/AddIdentifier">
 	<div class="form-group col-md-6">
 		<label for="name">Identifier Name:</label>
 		<input class="form-control" type="text" name="name" id="name" />

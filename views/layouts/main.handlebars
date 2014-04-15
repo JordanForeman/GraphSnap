@@ -11,6 +11,14 @@
 		<link rel="stylesheet" type="text/css" href="/css/fonts/graphsnap/style.css" />
 		<link rel="stylesheet" type="text/css" href="/css/global.css">
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+		{{#if useCharts}}
+		<script type="text/javascript" src="/js/d3/d3.min.js"></script>
+		<script type="text/javascript" src="/js/nvd3/nv.d3.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/js/nvd3/nv.d3.min.css" />
+		{{/if}}
+
 	</head>
 	<body>
 
@@ -46,6 +54,7 @@
           <li><a href="/Charts"><i class="icon-file"></i> Reports</a></li>
           <li><a href="/DataPoints"><i class="icon-drawer"></i> Data</a></li>
           <li><a href="/Profiles"><i class="icon-stack"></i> Profiles</a></li>
+		<li><a href="/Tests"><i class="icon-drawer"></i> Tests</a></li>
           <li><a href="/Settings"><i class="icon-cog"></i> Settings</a></li>
         </ul>
       </div>
@@ -54,7 +63,7 @@
       <div class="nav-section">
         <h3>Admin</h3>
         <ul class="nav nav-sidebar">
-          <li><a href="/Company"><i class="icon-office"></i> {{company.name}}</a></li>
+          <li><a href="/Company"><i class="icon-office"></i> {{#if company}}{{company.name}}{{else}}Company{{/if}}</a></li>
           <li><a href="/Company/Users"><i class="icon-users"></i> Users</a></li>
           <li><a href="/Company/Correspondence"><i class="icon-mail"></i> Correspondence</a></li>
         </ul>
@@ -90,13 +99,7 @@
 
 		<!-- Scripts -->
 		<script type="text/javascript" src="/js/graphsnap.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="/js/chosen/chosen.jquery.min.js"></script>
-
-		{{#if useCharts}}
-		<script type="text/javascript" src="/js/d3/d3.min.js" />
-		<script type="text/javascript" src="/js/charts.js" />
-		{{/if}}
 
 	</body>
 </html>

@@ -2,6 +2,7 @@ var BaseController = require("./Base"),
 	View = require("../views/Base"),
 	passport = require('passport'),
 	config = require('../config')(),
+	jwt = require('jwt-simple'),
 	Company = require("../models/Company"),
 	User = require("../models/Users");
 
@@ -12,6 +13,9 @@ module.exports = function (app) {
 	});
 
 	app.post('/login', passport.authenticate('local'), function(req, res){
+		if (req.user)
+			req.user.token = jwt.encode({email: req.user.email}, app.locals.secret);
+
 	    res.redirect('/');
 	});
 
@@ -27,7 +31,12 @@ module.exports = function (app) {
 		var company = new Company({ name: req.body.company });
 		company.save();
 
-		User.register(new User({ email: req.body.email, company: company, name: req.body.name }), req.body.password, function(err, account){
+		var key = "";
+		while (key.length < 40)
+			key += Math.random().toString(16).substring(2);
+		key = key.substring(0, 40);
+
+		User.register(new User({ email: req.body.email, company: company, name: req.body.name, apiKey: key }), req.body.password, function(err, account){
 			if (err) {
 				console.log('error registering');
 				console.log(err);

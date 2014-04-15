@@ -1,0 +1,51 @@
+{{#if profile}}
+
+<h2 class="title">{{profile.name}}</h2>
+
+<h4>Layout</h4>
+<table class="table table-fixed">
+    <thead>
+        <tr>
+            <th>Data Points <a class="btn btn-small" href="/DataPoint/CreateNew/{{profile._id}}">Add Data Point</a></th>
+            <th>Identifiers <a class="btn btn-small" href="/Profile/AddIdentifier/{{profile._id}}">Add Identifier</a></th>
+            <th>Tests <a class="btn btn-small" href="/Test/CreateNew/{{profile._id}}">Add Test</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{profile.dataPoints.length}}</td>
+            <td>{{profile.customIdentifiers.length}}</td>
+            <td>{{profile.tests.length}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{#if profile.dataPoints}}
+<h4>Entries</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Value</th>
+            {{#if profile.customIdentifiers}}
+            {{#each profile.customIdentifiers}}
+            <th>{{this}}</th>
+            {{/each}}
+            {{/if}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each profile.dataPoints}}
+        <tr data-id="{{_id}}">
+            <td>{{value}}</td>
+            {{#each customIdentifiers}}
+            <td>{{this}}</td>
+            {{/each}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}
+
+
+{{/if}}

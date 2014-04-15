@@ -1,5 +1,12 @@
 <div class="grid-row">
-	<form class="grid-2-3" role="form" id="createNewProductForm" method="POST" action="/Products/CreateNew">
+
+	{{#if profile}}
+	<h2 class="title">Create New <a href="/Profile/{{profile._id}}">{{profile.name}}</a> Data Point</h2>
+	{{else}}
+	<h2 class="title">Create New Data Point</h2>
+	{{/if}}
+
+	<form class="grid-2-3" role="form" id="createNewDataPointForm" method="POST" action="/DataPoint/CreateNew">
 
 		{{#if profile}}
 		{{else}}
@@ -8,7 +15,7 @@
 			<label for="profile">Data Profile</label>
 
 			<!-- TODO: make this update #profileId value -->
-			<select onchange="" class="chosen form-control" name="productType" id="productType">
+			<select onchange="pageController.updateProfileIdField(event);" class="chosen form-control" name="profile" id="profile">
 				<option value="0">-- Select a Data Profile --</option>
 				{{#each profiles}}
 					<option value="{{_id}}">{{name}}</option>
@@ -17,12 +24,33 @@
 		</div>
 		{{/if}}
 
-		<label for="value">Data Point Value:</label>
-		<input type="number" name="value" id="value" />
-		<input type="submit" value="Add Data Point" />
+		<div class="form-group">
+			<label for="value">Data Point Value:
+				<input type="number" name="value" id="value" required />
+			</label>
+		</div>
 
-		{{#if profile}}
-		<input type="hidden" id="profileId" name="profileId" value="{{profile._id}}">
-		{{/if}}
+		<input type="submit" id="submitForm" class="btn" value="Add Data Point" {{#if profile}}{{else}}disabled{{/if}}/>
+		<input type="hidden" id="profileId" name="profileId" {{#if profile}}value="{{profile._id}}"{{/if}} required>
+
 	</form>
 </div>
+
+<script type="text/javascript">
+
+var Page = function(){
+};
+
+Page.prototype.updateProfileIdField = function(event) {
+	var selectedIndex = event.target.selectedIndex,
+		selectedValue = event.target[selectedIndex].value,
+		submitForm = document.getElementById('submitForm'),
+		profileIdField = document.getElementById('profileId');
+
+	profileIdField.value = selectedValue;
+	submitForm.disabled = (selectedValue == "0" || selectedValue == null)
+};
+
+var pageController = new Page();
+
+</script>

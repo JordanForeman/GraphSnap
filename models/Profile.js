@@ -8,10 +8,21 @@ var mongoose = require('mongoose'),
 			unique: true
 		},
 
+		dataPoints: [{
+			type: Schema.Types.ObjectId,
+			ref: 'dataPoint'
+		}],
+
 		createdDate: {
 			type: Date,
 			default: Date.now,
 			required: true
+		},
+
+		company: {
+			type: Schema.Types.ObjectId,
+			required: true,
+			ref: 'company'
 		},
 
 		tests: {
@@ -23,6 +34,6 @@ var mongoose = require('mongoose'),
 		}],
 
 	}),
-	Profile = mongoose.model('Profile', ProfileSchema);
+	Profile = mongoose.model('profile', ProfileSchema);
 
 module.exports = Profile;

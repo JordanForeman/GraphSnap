@@ -7,6 +7,12 @@ var mongoose = require('mongoose'),
 
 		company: {
 			type: Schema.Types.ObjectId,
+			required: true,
+			ref: 'company'
+		},
+
+		apiKey: {
+			type: String,
 			required: true
 		},
 

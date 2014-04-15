@@ -1,8 +1,67 @@
 $headerSecondaryColor: #CCC;
-$blue: #3454d2;
+$blue: #3FBDD5;
+$tableBorder: 1px solid #CCC;
 
 $headerHeight: 50px;
 $sidebarWidth: 250px;
+
+a {
+	color: $blue;
+	text-decoration: none;
+
+	&:hover {
+		color: darken($blue, 20);
+	}
+}
+
+.btn {
+	display: inline-block;
+	margin: 10px auto;
+
+	background: WHITE;
+	color: $blue;
+
+	padding: 10px 15px;
+	text-align: center;
+	border: 2px solid $blue;
+	border-radius: 3px;
+
+	text-shadow: none;
+
+	transition: all .1s linear;
+	-webkit-transition: all .1s linear;
+	-moz-transition: all .1s linear;
+	-o-transition: all .1s linear;
+
+	&.btn-small {
+		font-size: .8em;
+		padding: 5px 8px;
+	}
+
+	&:hover {
+		background: $blue;
+		color: WHITE;
+	}
+
+	&[disabled] {
+		border-color: #CCC;
+		color: #CCC;
+
+		&:hover {
+			background: WHITE;
+			color: #CCC;
+		}
+	}
+}
+
+.title {
+	padding-bottom: 10px;
+	border-bottom: $tableBorder;
+
+	.btn {
+		margin-top: -8px;
+	}
+}
 
 .text-center { text-align: center; }
 .text-right { text-align: right; }

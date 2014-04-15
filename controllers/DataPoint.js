@@ -10,6 +10,19 @@ var BaseController = require("./Base"),
 
 module.exports = function(app){
 
+	app.get("/DataPoints", function(req, res){
+		if (!req.user)
+			res.redirect('/login');
+
+		Profile.find({})
+		.populate('dataPoints')
+		.exec(function(err, profiles){
+			if (err) return console.log(err);
+
+			res.render("DataPoint/index", {profiles: profiles});
+		});
+	});
+
 	app.get("/DataPoint/CreateNew", function(req, res){
 		if (!req.user)
 			res.redirect('/login');
@@ -21,6 +34,7 @@ module.exports = function(app){
 		});
 	});
 
+	//Generate view with a predetermined profile
 	app.get("/DataPoint/CreateNew/:id", function(req, res){
 		if (!req.user)
 			res.redirect('/login');
@@ -41,45 +55,27 @@ module.exports = function(app){
 		Profile.findById(req.body.profileId)
 		.exec(function(err, profile){
 
-			var ids = profile.customIdentifiers,
-				customIdentifiers = Array();
+			var ids = profile.customIdentifiers;
+			dp.customIdentifiers = [dp._id];
 
-			for(var i = 0; i < ids.length; i++)
+			for(var i = 1; i < ids.length; i++)
 			{
 				dp.customIdentifiers.push("");
 			}
 
 			dp.profile = profile;
-			prod.company = new ObjectId(user.company);
-			prod.save(function(err){
+			dp.value = req.body.value;
+			dp.company = req.user.company;
+			dp.save(function(err){
 				if (err) return console.log(err);
 			});
+
+			profile.dataPoints.push(dp);
+			profile.save();
 
 		});
 
 		res.redirect("/DataPoints");
-	});
-
-	app.get("/DataPoints", function(req, res){
-		if (!req.user)
-			res.redirect('/login');
-
-		//Get Profiles
-		Profile.find({}, function(err, profiles){
-			if (err) console.log(err);
-
-			//Get DataPoints
-			DataPoint.find({})
-			.populate('profile')
-			.exec(function(err, dps){
-				if (err) console.log(err);
-
-				res.render("DataPoint/index", {
-					profiles: profiles,
-					dataPoints: dps
-				});
-			})
-		});
 	});
 
 	app.get("/DataPoint/:id", function(req, res){

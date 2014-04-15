@@ -11,7 +11,8 @@ var config = require('./config')(),
 
 /* Models */
 var User = require('./models/Users'),
-		Company = require('./models/Company');
+	DataPoint = require('./models/DataPoint'),
+	Company = require('./models/Company');
 
 /* Passport Configuration */
 passport.use(User.createStrategy({ usernameField: 'email' }));
@@ -30,7 +31,12 @@ app.use(express.session({cookie: {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.locals.secret = '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOOD@[cy';
+
+/* Custom Middleware */
 app.use(function(req, res, next){
+	console.log(req.route);
+
 	if (req.user){
 		res.locals.user = req.user;
 		res.locals.userImg = get_gravatar(req.user.email, 100);
@@ -46,6 +52,14 @@ app.use(function(req, res, next){
 	next();
 });
 
+app.use('/api', function(req, res, next){
+	if (req.method == 'GET') {
+		if (!req.query.token) {res.send(403);}
+		else {next();}
+	}
+});
+
+/* Middleware */
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -60,6 +74,7 @@ require('./controllers/Profile')(app);
 require('./controllers/Chart')(app);
 require('./controllers/Mail')(app);
 require('./controllers/Company')(app);
+require('./controllers/Test')(app);
 
 /* API */
 require('./api/api')(app);
@@ -97,7 +112,13 @@ db.on('open', function(){
 		res.locals.useCharts = true;
 
 		if (req.user)
-			res.render('dashboard', { user: req.user });
+		{
+			DataPoint.find({company: req.user.company}, function(err, dps){
+				if (err) console.log(err);
+
+				res.render('dashboard', { user: req.user});
+			});
+		}
 		else
 			res.render('index', {layout: 'landing'});
 	});
