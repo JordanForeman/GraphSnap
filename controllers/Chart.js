@@ -1,20 +1,20 @@
-var Product = require('../models/Product'),
-	ProductType = require('../models/ProductType'),
-	CustomFieldType = require('../models/CustomFieldType'),
-	CustomField = require('../models/CustomField');
+var DataPoint = require('../models/DataPoint'),
+	Profile = require('../models/Profile');
 
 module.exports = function(app){
 
 	app.get('/Charts', function(req, res){
 
+		res.locals.useCharts = true;
+
 		if (!req.user)
 			res.redirect('/');
 
-		ProductType.find({}, function(err, prodTypes){
+		Profile.find({}, function(err, profiles){
 
 			if (err) console.log(err);
 
-			res.render('Chart/index', {productTypes: prodTypes});
+			res.render('Chart/index', {profiles: profiles});
 
 		});
 

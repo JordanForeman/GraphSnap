@@ -2,6 +2,7 @@ var BaseController = require("./Base"),
 	View = require("../views/Base"),
 	passport = require('passport'),
 	config = require('../config')(),
+	Company = require("../models/Company"),
 	User = require("../models/Users");
 
 module.exports = function (app) {
@@ -23,12 +24,17 @@ module.exports = function (app) {
 	});
 
 	app.post('/register', function(req, res){
-		User.register(new User({ email: req.body.email }), req.body.password, function(err, account){
+		var company = new Company({ name: req.body.company });
+		company.save();
+
+		User.register(new User({ email: req.body.email, company: company, name: req.body.name }), req.body.password, function(err, account){
 			if (err) {
 				console.log('error registering');
 				console.log(err);
 				return res.render('register', {account: account});
 			}
+
+	company.save();
 
 			res.redirect('/');
 		})

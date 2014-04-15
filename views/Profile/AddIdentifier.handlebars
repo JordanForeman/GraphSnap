@@ -1,0 +1,9 @@
+<form class="row" role="form" id="AddIdentifierToProfileForm" method="POST" action="AddIdentifer">
+
+	<div class="form-group col-md-6">
+		<label for="name">Identifier Name:</label>
+		<input class="form-control" type="text" name="name" id="name" />
+	</div>
+	<input type="hidden" name="profileId" id="profileId" value="{{profile._id}}" />
+	<input type="submit" class="btn btn-primary" value="Add Identifier" />
+</form>

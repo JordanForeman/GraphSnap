@@ -4,7 +4,12 @@ var mongoose = require('mongoose'),
 	userSchema = new Schema({
 
 		name: String,
-		
+
+		company: {
+			type: Schema.Types.ObjectId,
+			required: true
+		},
+
 		joinDate: {
 			type: Date,
 			default: Date.now
@@ -17,7 +22,7 @@ var mongoose = require('mongoose'),
 
 	});
 
-userSchema.plugin(passportLocalMongoose, 
+userSchema.plugin(passportLocalMongoose,
 {
 	usernameField: 'email',
 });

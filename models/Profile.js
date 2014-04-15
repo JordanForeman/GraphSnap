@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	productTypeSchema = new Schema({
+	ProfileSchema = new Schema({
 
-		productTypeName: {
+		name: {
 			type: String,
 			required: true,
 			unique: true
@@ -18,12 +18,11 @@ var mongoose = require('mongoose'),
 			type: Array
 		},
 
-		customFieldTypes: [{
-			type: Schema.Types.ObjectId,
-			ref: 'customFieldType'
+		customIdentifiers: [{
+			type: String
 		}],
 
 	}),
-	ProductType = mongoose.model('productType', productTypeSchema);
+	Profile = mongoose.model('Profile', ProfileSchema);
 
-module.exports = ProductType;
+module.exports = Profile;

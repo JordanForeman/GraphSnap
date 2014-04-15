@@ -12,12 +12,15 @@ ul.nav {
 .nav-sidebar {
 
   li {
-    padding: 10px 31px;
     border-left: 4px solid transparent;
 
     &:hover {
       background: #282828;
       border-left-color: $blue;
+    }
+
+    a {
+      padding: 10px 31px;
     }
   }
 }

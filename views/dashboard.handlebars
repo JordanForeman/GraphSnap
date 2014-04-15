@@ -1,52 +1,25 @@
 {{#if user }}
-		<div class="alert alert-danger">
-			<strong>Urgent Notice!</strong>
-			You have <a href="/Notifications">one urgent notice</a> to attend to
-		</div>
 
-	<div class="grid-row">
-
-		<div class="grid-1-3 module home-action">
-			<h4>
-				<i class="glyphicon glyphicon-stats"></i>
-				<a href="/Chart/CreateNew">Create Chart</a>
-			</h4>
-
-			<p>Create beautiful charts using all of your data and our easy to use tools.</p>
-			<p>Also:
-				<a href="/Products">Review Data</a>
-			</p>
-		</div>
-
-		<div class="grid-1-3 module home-action">
-			<h4>
-				<i class="glyphicon glyphicon-pencil"></i>
-				<a href="/Products/CreateNew">Enter Data</a>
-			</h4>
-
-			<p>Enter in product data for existing profiles.</p>
-			<p>Also:
-				<a href="#">Import Data</a>
-			</p>
-		</div>
-
-		<div class="grid-1-3 module home-action">
-			<h4>
-				<i class="glyphicon glyphicon-tree-deciduous"></i>
-				<a href="/ProductType/CreateNew">New Data Profile</a>
-			</h4>
-
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, quas, rem ipsum culpa fugit cumque voluptatum delectus ea magni ab assumenda quaerat nobis error id dolorem explicabo autem fuga. Quidem.</p>
-			<p>Also:
-				<a href="/Products">Product Profiles</a>
-			</p>
-		</div>
-
+	{{#if notifications}}
+	<div class="alert alert-danger">
+		<strong>Urgent Notice!</strong>
+		You have <a href="/Notifications">{{notifications.count}} urgent notice</a> to attend to
 	</div>
-	
-	{{#if user.isAdmin }}
-	<strong>Admin Links: </strong>
-	<a href="Products">Product Profiles</a> |
-	<a href="users">Registered Users</a>
 	{{/if}}
+
+	<section class="grid-row">
+
+		<!-- Large Chart -->
+		<div class="grid-4-5">
+			<h1>Data Capture History</h1>
+			<div id="" class="line-chart">
+			</div>
+		</div>
+
+		<!-- Secondary splash data -->
+		<div class="grid-1-5">
+		</div>
+
+	</section>
+
 {{/if}}

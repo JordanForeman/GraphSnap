@@ -10,7 +10,8 @@ var config = require('./config')(),
 	LocalStrategy = require('passport-local').Strategy;
 
 /* Models */
-var User = require('./models/Users');
+var User = require('./models/Users'),
+		Company = require('./models/Company');
 
 /* Passport Configuration */
 passport.use(User.createStrategy({ usernameField: 'email' }));
@@ -34,6 +35,12 @@ app.use(function(req, res, next){
 		res.locals.user = req.user;
 		res.locals.userImg = get_gravatar(req.user.email, 100);
 
+		Company.findOne({_id: req.user.company}, function(err, company){
+			if (err) return console.log(err);
+
+			res.locals.company = company;
+		});
+
 		//TODO: get all notifications for user
 	}
 	next();
@@ -48,17 +55,16 @@ app.set('view engine', 'handlebars');
 /* Controllers */
 require('./controllers/Auth')(app);
 require('./controllers/Users')(app);
-require('./controllers/Product')(app);
-require('./controllers/ProductType')(app);
+require('./controllers/DataPoint')(app);
+require('./controllers/Profile')(app);
 require('./controllers/Chart')(app);
 require('./controllers/Mail')(app);
+require('./controllers/Company')(app);
 
 /* API */
 require('./api/api')(app);
-require('./api/ProductType')(app);
-require('./api/CustomFieldTypes')(app);
-require('./api/Product.js')(app);
-require('./api/CustomField.js')(app);
+require('./api/Profile')(app);
+require('./api/DataPoint.js')(app);
 
 /* Connect */
 var host = config.dbHost || ("mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName);
@@ -88,6 +94,8 @@ db.on('open', function(){
 	});
 
 	app.get('/', function(req, res){
+		res.locals.useCharts = true;
+
 		if (req.user)
 			res.render('dashboard', { user: req.user });
 		else
