@@ -14,7 +14,7 @@ module.exports = function(app){
 				res.redirect('/');
 			}
 
-			res.render('profile/index', {profiles: profiles});
+			res.render('Profile/index', {profiles: profiles});
 		});
 	});
 
