@@ -19,7 +19,7 @@ html {
 }
 
 body {
-	font-family: "proxima-nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-family: "proxima-nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-weight: 300;
 
 	background: white;
@@ -212,3 +212,76 @@ nav.nav-main.fixed {
 .grid-4-5 { width: 80%; }
 
 .grid-1-3 { width: 33%; }
+
+/* Form */
+form {
+	display: block;
+	width: 600px;
+	max-width: 100%;
+	margin: 0 auto;
+
+	border: 1px solid #CCC;
+}
+
+form:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+form input[type="email"], form input[type="password"], form input[type="text"] {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #CCC;
+
+	padding: 10px;
+}
+
+form input[type="email"]:focus, form input[type="password"]:focus, form input[type="text"]:focus {
+	outline: none;
+}
+
+form input[type="submit"], form .links {
+	float: left;
+	width: 50%;
+	padding: 10px;
+	text-align: center;
+}
+
+form input[type="submit"] {
+	border: none;
+	border-right: 1px solid #CCC;
+	background: #DDD;
+
+	transition: all .1s linear;
+}
+
+form input[type="submit"]:hover {
+	background: #444;
+	color: WHITE;
+}
+
+form .radio {
+	display: inline-block;
+	width: 50%;
+}
+
+form .radio ul {
+
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+form .radio ul li {
+	display: inline-block;
+	width: 49%;
+
+	padding: 10px;
+	text-align: center;
+	border-right: 1px solid #CCC;
+}
+
+form .radio ul li:last-of-type {
+	border-right: none;
+}

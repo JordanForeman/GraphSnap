@@ -83,6 +83,10 @@ db.on('open', function(){
 		res.render('attribution');
 	});
 
+	app.get('/Subscribe', function(req, res){
+		res.render('email-signup', {title: "Subscribe for Updates", layout: 'landing'});
+	});
+
 	app.get('/', function(req, res){
 		if (req.user)
 			res.render('dashboard', { user: req.user });
