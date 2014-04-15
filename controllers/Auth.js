@@ -17,7 +17,7 @@ module.exports = function (app) {
 	app.get('/register', function(req, res){
 
 		if (config.mode === 'production')
-			return res.render('email-signup', {layout: 'landing'});
+			return res.render('email-signup', { title: 'Subscribe for Updates', layout: 'landing'});
 
 		res.render('register', { title: 'Register', layout: 'landing' });
 	});
