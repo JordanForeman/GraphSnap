@@ -13,8 +13,6 @@ module.exports = function(app){
         .exec(function(err, tests){
             if (err) return console.log(err);
 
-            console.log(tests[0].profile);
-
             res.render('Test/index', {tests: tests});
         });
     });
@@ -34,11 +32,11 @@ module.exports = function(app){
     app.get('/Test/CreateNew', function(req, res){
         if (!req.user) res.redirect('/');
 
-        Profile.find({}, function(err, profiles){
-            if (err) return console.log(err);
+        // Profile.find({}, function(err, profiles){
+        //     if (err) return console.log(err);
 
             res.render('Test/create', {profiles: profiles});
-        });
+        //});
     });
 
     app.get('/Test/CreateNew/:id', function(req, res){

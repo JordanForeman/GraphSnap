@@ -12,7 +12,8 @@
     "mongoose": "latest",
     "connect-ensure-login": "latest",
     "sendgrid": "~1.0.2",
-    "jwt-simple": "^0.2.0"
+    "jwt-simple": "^0.2.0",
+    "newrelic": "~1.5.2"
   },
   "devDependencies": {
     "grunt": "latest",

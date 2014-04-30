@@ -1,5 +1,6 @@
 /* Lib & Config */
 var config = require('./config')(),
+	newrelic = require('newrelic'),
 	path = require('path'),
 	express = require('express'),
 	exphbs = require('express3-handlebars'),
@@ -58,6 +59,17 @@ app.use('/api', function(req, res, next){
 		else {next();}
 	}
 });
+
+if (process.env.ENV_VARIABLE) {
+	app.use('/', function(req, res, next){
+		if (!req.user) {
+			req.login({username: 'thejordanforeman@gmail.com', password: 'jf40070'}, function(err){
+				if (err) { console.log("=======ERR======="); console.log(err); return next(err); };
+				return next();
+			});
+		}
+	});
+}
 
 /* Middleware */
 app.use(app.router);

@@ -43,7 +43,8 @@ module.exports = function (app) {
 				return res.render('register', {account: account});
 			}
 
-	company.save();
+			company.save();
+			req.login(account);
 
 			res.redirect('/');
 		})
