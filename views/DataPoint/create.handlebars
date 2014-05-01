@@ -24,11 +24,29 @@
 		</div>
 		{{/if}}
 
-		<div class="form-group">
-			<label for="value">Data Point Value:
-				<input type="number" name="value" id="value" required />
-			</label>
-		</div>
+		{{#if profile.tests}}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Test Name</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+			{{#each profile.tests}}
+					<tr>
+						<td>{{name}}</td>
+						{{#if isQuantitative}}
+						<td><input name="{{_id}}" type="number"></td>
+						{{/if}}
+						{{#if isQualitative}}
+						<td><input name="{{_id}}" type="checkbox"></td>
+						{{/if}}
+					</tr>
+			{{/each}}
+				</tbody>
+			</table>
+		{{/if}}
 
 		<input type="submit" id="submitForm" class="btn" value="Add Data Point" {{#if profile}}{{else}}disabled{{/if}}/>
 		<input type="hidden" id="profileId" name="profileId" {{#if profile}}value="{{profile._id}}"{{/if}} required>

@@ -17,6 +17,7 @@
             <!-- TODO: make this update #profileId value -->
             <select onchange="pageController.updateProfileIdField(event);" class="chosen form-control" name="profile" id="profile">
                 <option value="0">-- Select a Data Profile --</option>
+                <option value="534dc9a98b63a19a321d500e">Chopped Romaine</option>
                 {{#each profiles}}
                     <option value="{{_id}}">{{name}}</option>
                 {{/each}}
@@ -32,14 +33,23 @@
 
         <div class="grid-row">
             <div class="grid-1-2 form-group">
+                <input type="radio" name="testType" value="QUANTITATIVE" onchange="pageController.updateTestType(event)">Quantitative
+            </div> 
+            <div class="grid-1-2 form-group">
+                <input type="radio" name="testType" value="QUALITATIVE" onchange="pageController.updateTestType(event)">Qualitative
+            </div>
+        </div>
+
+        <div id="quant-controls" class="grid-row" style="display: none;">
+            <div class="grid-1-2 form-group">
                 <label for="minvalue">Data Point Min:
-                    <input type="number" name="minvalue" id="minvalue" required />
+                    <input type="number" name="minvalue" id="minvalue" />
                 </label>
             </div>
 
             <div class="grid-1-2 form-group">
                 <label for="maxvalue">Data Point Max:
-                    <input type="number" name="maxvalue" id="maxvalue" required />
+                    <input type="number" name="maxvalue" id="maxvalue" />
                 </label>
             </div>
         </div>
@@ -63,6 +73,22 @@ Page.prototype.updateProfileIdField = function(event) {
 
     profileIdField.value = selectedValue;
     submitForm.disabled = (selectedValue == "0" || selectedValue == null)
+};
+
+Page.prototype.updateTestType = function(event) {
+    switch (event.target.value) {
+        case 'QUANTITATIVE' :
+            //show QUANT
+            $('#quant-controls').show();
+            break;
+        case 'QUALITATIVE' :
+            //Hide Quant
+            $('#quant-controls').hide();
+            break;
+        default :
+            //Hide both
+            break;
+    }
 };
 
 var pageController = new Page();

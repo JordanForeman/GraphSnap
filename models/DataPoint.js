@@ -20,11 +20,10 @@ catch(e)
 				ref: 'profile'
 			},
 
-			value: {
-				type: Number,
-				required: true,
-				default: 0
-			},
+			testValues: [{
+				type: Schema.Types.ObjectId,
+				ref: 'testValue'
+			}],
 
 			customIdentifiers: [{
 				type: String

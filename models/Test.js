@@ -20,17 +20,27 @@ var mongoose = require('mongoose'),
             ref: 'company'
         },
 
+        isQualitative: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
+
+        isQuantitative: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
+
         threshold: {
             min: {
                 type: Number,
-                required: true,
-                default: 0
+                required: false
             },
 
             max: {
                 type: Number,
-                required: true,
-                default: 0
+                required: false
             }
         },
 

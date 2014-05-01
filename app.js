@@ -36,21 +36,20 @@ app.locals.secret = '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOO
 
 /* Custom Middleware */
 app.use(function(req, res, next){
-	console.log(req.route);
 
 	if (req.user){
 		res.locals.user = req.user;
 		res.locals.userImg = get_gravatar(req.user.email, 100);
 
 		Company.findOne({_id: req.user.company}, function(err, company){
-			if (err) return console.log(err);
+			if (err) return next(err);
 
 			res.locals.company = company;
 		});
 
 		//TODO: get all notifications for user
 	}
-	next();
+	return next();
 });
 
 app.use('/api', function(req, res, next){
@@ -87,11 +86,13 @@ require('./controllers/Chart')(app);
 require('./controllers/Mail')(app);
 require('./controllers/Company')(app);
 require('./controllers/Test')(app);
+require('./controllers/Report')(app);
 
 /* API */
 require('./api/api')(app);
 require('./api/Profile')(app);
-require('./api/DataPoint.js')(app);
+require('./api/DataPoint')(app);
+require('./api/TestValue')(app);
 
 /* Connect */
 var host = config.dbHost || ("mongodb://" + config.host + ":" + config.dbPort + "/" + config.dbName);

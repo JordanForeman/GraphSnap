@@ -36,22 +36,22 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Value</th>
 				{{#if customIdentifiers}}
 				{{#each customIdentifiers}}
 				<th>{{this}}</th>
 				{{/each}}
 				{{/if}}
+				<th>Num. Tests</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			{{#each dataPoints}}
 			<tr data-id="{{_id}}">
-				<td>{{value}}</td>
 				{{#each customIdentifiers}}
 				<td>{{this}}</td>
 				{{/each}}
+				<td>{{testValues.length}}</td>
 			</tr>
 			{{/each}}
 		</tbody>

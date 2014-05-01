@@ -1,0 +1,96 @@
+{{#if test}}
+<h1>{{test.name}}</h1>
+<h3>
+{{#if test.isQuantitative}}
+Quantitative
+{{/if}}
+{{#if test.isQualitative}}
+Qualitative
+{{/if}}
+</h3>
+{{/if}}
+
+<div id="chart">
+</div>
+
+<script type="text/javascript">
+nv.addGraph(function() {
+
+	$.ajax({
+		type: 'GET',
+		url: '/api/TestValues/{{test._id}}',
+		data: {
+			token: "{{user.apiKey}}"
+		},
+		contentType: 'application/json',
+		dataType: 'json',
+		success: function(data){
+			console.log("===========DATA==========");
+			console.log(data);
+
+			dataLoadedEventHandler(data);
+		},
+		error: dataLoadedErrorHandler,
+		complete: function(jqxhr, textStatus){ return console.log(textStatus);}
+	});
+
+	var dataLoadedErrorHandler = function() {
+		console.log("ERROR");
+	};
+
+	var dataLoadedEventHandler = function(data) {
+		//TODO: make graph from data
+		if ({{test.isQuantitative}})
+			buildQuantitativeChart(data);
+		else
+			buildQualitativeChart(data);
+	};
+
+	var buildQualitativeChart = function(data) {
+		console.log("==== Qualitative Chart ====")
+	};
+
+	var buildQuantitativeChart = function(data) {
+		console.log("==== Quantitative Chart ====")
+
+		var chartData = cleanQuantData(data),
+			w = 700,
+			h = 300,
+			max = d3.max(chartData);
+
+		// Scales
+		var x = d3.scale.linear().domain([0, data.length - 1]).range(0, w),
+			y = d3.scale.linear().domain([0, max]).range(0, h);
+
+		// Base vis layer
+		var vis = d3.select('#chart')
+					.append('svg:svg')
+					.attr('width', w)
+					.attr('height', h);
+
+		// Add Path Layer
+		vis.selectAll('path.line')
+			.data(chartData)
+			.enter().append("svg:path")
+			.attr("d", d3.svg.line()
+				.x(function(d, i){
+					return x(i);
+				}).y(y));
+
+	};
+
+	var cleanQuantData = function(data) {
+
+		var returnData = new Array();
+
+		for (var i = 0; i < data.length; i++) {
+			var datapoint = data[i];
+			returnData.push(datapoint.quantValue);
+		}
+
+		return returnData;
+
+	};
+
+});	
+</script>
