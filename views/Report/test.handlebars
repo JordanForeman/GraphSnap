@@ -2,9 +2,11 @@
 <h1>{{test.name}}</h1>
 <h3>
 {{#if test.isQuantitative}}
+<script type="text/javascript">var isQuantitative = true; </script>
 Quantitative
 {{/if}}
 {{#if test.isQualitative}}
+<script type="text/javascript">var isQuantitative = false; </script>
 Qualitative
 {{/if}}
 </h3>
@@ -40,7 +42,7 @@ nv.addGraph(function() {
 
 	var dataLoadedEventHandler = function(data) {
 		//TODO: make graph from data
-		if ({{test.isQuantitative}})
+		if (isQuantitative)
 			buildQuantitativeChart(data);
 		else
 			buildQualitativeChart(data);
@@ -48,6 +50,40 @@ nv.addGraph(function() {
 
 	var buildQualitativeChart = function(data) {
 		console.log("==== Qualitative Chart ====")
+
+		var color = d3.scale.ordinal()
+			.range(["red", "blue", "orange"]);
+
+		var chartData = cleanQualData(data),
+			radius = 300;
+
+		console.log(chartData);
+
+		var canvas = d3.select("#chart").append("svg")
+			.attr("width", 1500)
+			.attr("height", 1500);
+
+		var group = canvas.append("g")
+			.attr("transform", "translate(300, 300)");
+
+		var arc = d3.svg.arc()
+			.innerRadius(radius - 100)
+			.outerRadius(radius);
+
+		var pie = d3.layout.pie()
+			.value(function(d) { return d; });
+
+		var arcs = group.selectAll(".arc")
+			.data(pie(chartData))
+			.enter()
+			.append("g")
+			.attr("class", "arc");
+
+		arcs.append("path")
+			.attr("d", arc)
+			.attr("fill", function (d) { return color(d.data); });
+
+
 	};
 
 	var buildQuantitativeChart = function(data) {
@@ -89,6 +125,24 @@ nv.addGraph(function() {
 		}
 
 		return returnData;
+
+	};
+
+	var cleanQualData = function(data) {
+
+		var yeps = 0,
+			nopes = 0;
+
+		for (var i = 0; i < data.length; i++) {
+			var datapoint = data[i];
+
+			if (datapoint.qualValue)
+				yeps++
+			else
+				nopes++
+		}
+
+		return [yeps, nopes];
 
 	};
 

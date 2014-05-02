@@ -18,7 +18,7 @@ module.exports = function(app){
     });
 
     app.get('/Test/CreateNew', function(req, res){
-        if (!req.user) res.redirect('/');
+        if (!req.user) res.redirect('/login');
 
         var companyId = req.user.company;
         console.log(companyId);
