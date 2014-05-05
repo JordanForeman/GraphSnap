@@ -1,3 +1,22 @@
+<style>
+
+#chart .quant path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+ 
+#chart .quant line {
+    stroke: black;
+}
+ 
+#chart .quant text {
+    font-family: Arial;
+    font-size: 9pt;
+}
+
+</style>
+
 {{#if test}}
 <h1>{{test.name}}</h1>
 <h3>
@@ -61,7 +80,8 @@ nv.addGraph(function() {
 
 		var canvas = d3.select("#chart").append("svg")
 			.attr("width", 1500)
-			.attr("height", 1500);
+			.attr("height", 1500)
+			.attr("class", "qual");
 
 		var group = canvas.append("g")
 			.attr("transform", "translate(300, 300)");
@@ -86,32 +106,84 @@ nv.addGraph(function() {
 
 	};
 
-	var buildQuantitativeChart = function(data) {
-		console.log("==== Quantitative Chart ====")
+	var buildQuantitativeChart = function(cdata) {
+		console.log("==== Quantitative Chart ====");
 
-		var chartData = cleanQuantData(data),
-			w = 700,
-			h = 300,
-			max = d3.max(chartData);
+		var data = cleanQuantData(cdata),
+			w = 400,
+			h = 200,
+			margin = 20,
+			y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]),
+			x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
 
-		// Scales
-		var x = d3.scale.linear().domain([0, data.length - 1]).range(0, w),
-			y = d3.scale.linear().domain([0, max]).range(0, h);
+		var canvas = d3.select("#chart")
+					.append("svg:svg")
+					.attr("width", w)
+					.attr("height", h)
+					.attr("class", "quant");
 
-		// Base vis layer
-		var vis = d3.select('#chart')
-					.append('svg:svg')
-					.attr('width', w)
-					.attr('height', h);
+		var g = canvas.append("svg:g")
+				.attr("transform", "translate(0, 200)");
 
-		// Add Path Layer
-		vis.selectAll('path.line')
-			.data(chartData)
-			.enter().append("svg:path")
-			.attr("d", d3.svg.line()
-				.x(function(d, i){
-					return x(i);
-				}).y(y));
+		var line = d3.svg.line()
+					.x(function(d, i) {
+						return x(i);
+					})
+					.y(function(d, i) {
+						return -1 * y(d);
+					});
+
+		g.append("svg:path")
+			.attr("d", line(data));
+
+		g.append("svg:line")
+			.attr("x1", x(0))
+			.attr("y1", -1 * y(0))
+			.attr("x2", x(w))
+			.attr("y2", -1 * y(0));
+
+		g.append("svg:line")
+			.attr("x1", x(0))
+			.attr("y1", -1 * y(0))
+			.attr("x2", x(0))
+			.attr("y2", -1 * y(d3.max(data)));
+
+		g.selectAll(".xLabel")
+			.data(x.ticks(5))
+			.enter().append("svg:text")
+			.attr("class", "xLabel")
+			.text(String)
+			.attr("x", function(d) { return x(d) })
+			.attr("y", 0)
+			.attr("text-anchor", "middle");
+	 
+		g.selectAll(".yLabel")
+			.data(y.ticks(4))
+			.enter().append("svg:text")
+			.attr("class", "yLabel")
+			.text(String)
+			.attr("x", 0)
+			.attr("y", function(d) { return -1 * y(d) })
+			.attr("text-anchor", "right")
+			.attr("dy", 4);
+
+		g.selectAll(".xTicks")
+			.data(x.ticks(5))
+			.enter().append("svg:line")
+			.attr("class", "xTicks")
+			.attr("x1", function(d) { return x(d); })
+			.attr("y1", -1 * y(0))
+			.attr("x2", function(d) { return x(d); })
+			.attr("y2", -1 * y(-0.3));
+		 
+		g.selectAll(".yTicks")
+			.data(y.ticks(4))
+			.enter().append("svg:line")
+			.attr("class", "yTicks")
+			.attr("y1", function(d) { return -1 * y(d); })
+			.attr("x1", x(-0.3))
+			.attr("y2", function(d) { return -1 * y(d); })
+			.attr("x2", x(0));
 
 	};
 
@@ -120,12 +192,15 @@ nv.addGraph(function() {
 		var returnData = new Array();
 
 		for (var i = 0; i < data.length; i++) {
-			var datapoint = data[i];
-			returnData.push(datapoint.quantValue);
+			var datapoint = data[i],
+				date = datapoint.datapoint.createdDate.substring(0, 10),
+				val = datapoint.quantValue;
+			returnData.push(val);
+			//returnData.push({"date": date, "value": val});
 		}
 
+		console.log(returnData);
 		return returnData;
-
 	};
 
 	var cleanQualData = function(data) {

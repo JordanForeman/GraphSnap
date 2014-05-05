@@ -8,6 +8,7 @@ module.exports = function(app){
 			res.redirect('/');
 
 		TestValue.find({test: req.params.testId})
+		.sort({dateCreated: -1})
 		.populate('datapoint')
 		.exec(function(err, testValues){
 			if (err) return console.log(err);
