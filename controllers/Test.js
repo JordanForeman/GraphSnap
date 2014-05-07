@@ -39,7 +39,7 @@ module.exports = function(app){
         if (!req.user) res.redirect('/');
 
         var test = new Test();
-        test.company = req.user.company;
+        test.company = req.user.company || req.user.getCompany._id;
         test.profile = req.body.profileId;
         test.name = req.body.name;
 
@@ -51,6 +51,7 @@ module.exports = function(app){
             test.isQualitative = false;
             test.threshold.min = req.body.minvalue;
             test.threshold.max = req.body.maxvalue;
+            test.units = req.body.units;
         } else if (type == "QUALITATIVE") {
             test.isQuantitative = false;
             test.isQuantitative = true;

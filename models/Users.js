@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+	Company = require('../models/Company'),
 	passportLocalMongoose = require('passport-local-mongoose'),
 	Schema = mongoose.Schema,
 	userSchema = new Schema({
@@ -35,6 +36,16 @@ userSchema.plugin(passportLocalMongoose,
 
 userSchema.methods.isAdmin = function(){
 	return this.user.roles.indexOf("admin") >= 0;
+};
+
+userSchema.methods.getCompany = function(){
+	var companyId = this.user.company;
+
+	Company.findById(companyId, function(err, company){
+		if (err) return console.log(err);
+
+		return company;
+	});
 };
 
 User = mongoose.model('user', userSchema);

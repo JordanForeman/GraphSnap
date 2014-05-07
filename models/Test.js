@@ -20,6 +20,11 @@ var mongoose = require('mongoose'),
             ref: 'company'
         },
 
+        units: {
+            type: String,
+            required: false
+        },
+
         isQualitative: {
             type: Boolean,
             required: true,
