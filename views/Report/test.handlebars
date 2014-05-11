@@ -15,6 +15,10 @@
     font-size: 9pt;
 }
 
+.quantitative-dot {
+	fill: steelblue;
+}
+
 </style>
 
 {{#if test}}
@@ -125,6 +129,7 @@ nv.addGraph(function() {
 		var g = canvas.append("svg:g")
 				.attr("transform", "translate(0, 200)");
 
+		// Line drawing function
 		var line = d3.svg.line()
 					.x(function(d, i) {
 						return x(i);
@@ -133,23 +138,40 @@ nv.addGraph(function() {
 						return -1 * y(d);
 					});
 
+		// Draw a line
 		g.append("svg:path")
 			.attr("d", line(data));
 
+		// Draw circles
+		var circles = g.selectAll('circle')
+			.data(data)
+			.enter().append("circle")
+			.attr('cx', function (d, i) { return x(i); })
+			.attr('cy', function (d) { return -1 * y(d); })
+			.attr('r', 5)
+			.attr('class', 'quantitative-dot');
+
+		//===========================
+		// Axes & Ticks
+		//===========================
+
+		// X-Axis
 		g.append("svg:line")
 			.attr("x1", x(0))
 			.attr("y1", -1 * y(0))
 			.attr("x2", x(w))
 			.attr("y2", -1 * y(0));
 
+		// Y-Axis
 		g.append("svg:line")
 			.attr("x1", x(0))
 			.attr("y1", -1 * y(0))
 			.attr("x2", x(0))
 			.attr("y2", -1 * y(d3.max(data)));
 
+		// X Labels
 		g.selectAll(".xLabel")
-			.data(x.ticks(5))
+			.data(x.ticks(data.length - 1))
 			.enter().append("svg:text")
 			.attr("class", "xLabel")
 			.text(String)
@@ -157,6 +179,7 @@ nv.addGraph(function() {
 			.attr("y", 0)
 			.attr("text-anchor", "middle");
 	 
+	 	// Y Labels
 		g.selectAll(".yLabel")
 			.data(y.ticks(4))
 			.enter().append("svg:text")
@@ -167,21 +190,23 @@ nv.addGraph(function() {
 			.attr("text-anchor", "right")
 			.attr("dy", 4);
 
+		// X-Ticks
 		g.selectAll(".xTicks")
-			.data(x.ticks(5))
+			.data(x.ticks(data.length - 1))
 			.enter().append("svg:line")
 			.attr("class", "xTicks")
 			.attr("x1", function(d) { return x(d); })
 			.attr("y1", -1 * y(0))
 			.attr("x2", function(d) { return x(d); })
-			.attr("y2", -1 * y(-0.3));
+			.attr("y2", -1 * y(-1));
 		 
+		// Y-Ticks
 		g.selectAll(".yTicks")
 			.data(y.ticks(4))
 			.enter().append("svg:line")
 			.attr("class", "yTicks")
 			.attr("y1", function(d) { return -1 * y(d); })
-			.attr("x1", x(-0.3))
+			.attr("x1", x(-0.1))
 			.attr("y2", function(d) { return -1 * y(d); })
 			.attr("x2", x(0));
 
@@ -223,3 +248,7 @@ nv.addGraph(function() {
 
 });	
 </script>
+
+<!-- Chart Event handlers -->
+{{#if test.isQuantitative}}
+{{/if}}
