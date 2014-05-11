@@ -27,19 +27,20 @@ module.exports = function(app){
 
             if (err) { return console.log(err); }
 
-            console.log(profiles);
-            res.render('Test/create', {profiles: profiles})
+            console.log("Profiles: " + profiles.length);
+            res.render('Test/create', {profiles: profiles});
 
         });
-
-        res.render('Test/create');
     });
 
     app.post('/Test/CreateNew', function(req, res){
         if (!req.user) res.redirect('/');
 
+        var company = req.user.company || req.user.getCompany._id;
+        //console.log(company);
+
         var test = new Test();
-        test.company = req.user.company || req.user.getCompany._id;
+        test.company = company;
         test.profile = req.body.profileId;
         test.name = req.body.name;
 
@@ -61,6 +62,8 @@ module.exports = function(app){
 
         Profile.findById(req.body.profileId, function(err, profile){
             if (err) return console.log(err);
+
+            if (!profile) return console.log("No Profile Found");
 
             profile.tests.push(test._id);
 

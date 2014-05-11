@@ -46,9 +46,19 @@ module.exports = function(grunt){
 			}
 		},
 
-		concurrent: {
+		'node-inspector' : {
 			dev: {
-				tasks: ['watch', 'nodemon'],
+				options : {
+					'web-port': 8080,
+					'web-host': 'localhost',
+					'debug-port': 3000
+				}
+			}
+		},
+
+		concurrent: {
+			blug: {
+				tasks: ['watch', 'nodemon', 'node-inspector'],
 				options: {
 					logConcurrentOutput: true
 				}
@@ -61,6 +71,7 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-nodemon');
 	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-node-inspector');
 
 	grunt.registerTask('default', ['sass', 'nodemon']);
 	grunt.registerTask('dev', ['concurrent']);

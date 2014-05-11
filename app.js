@@ -25,10 +25,15 @@ app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
-app.use(express.session({cookie: {
-  expires: new Date(Date.now() + 60 * 10000),
-  maxAge: 60*10000
-}}));
+
+app.use(express.session({
+	cookie: {
+		expires: new Date(Date.now() + 60 * 10000),
+		maxAge: 60*10000
+	},
+	secret: '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOOD@[cy'
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
