@@ -32,7 +32,10 @@
 <h2 class="title">Data Points <a href="/DataPoint/CreateNew" class="btn btn-small pull-right">Create New</a></h2>
 {{#if profiles }}
 	{{#each profiles}}
-	<h4>{{name}}</h4>
+	<h4>
+		{{name}}
+		<small><a class="pull-right" href="/Profile/{{_id}}">Edit Profile</a></small>
+	</h4>
 	<table class="table">
 		<thead>
 			<tr>

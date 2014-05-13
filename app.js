@@ -126,6 +126,10 @@ db.on('open', function(){
 		res.render('email-signup', {title: "Subscribe for Updates", layout: 'landing'});
 	});
 
+	app.get('/prototype', function(req, res){
+		res.render('prototype');
+	});
+
 	app.get('/', function(req, res){
 		res.locals.useCharts = true;
 

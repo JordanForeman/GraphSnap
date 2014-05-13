@@ -7,12 +7,10 @@ module.exports = function(app){
 
     app.get('/Tests', function(req, res){
         if (!req.user) res.redirect('/');
-
-        Test.find({})
+        Test.find()
         .populate('profile')
-        .exec(function(err, tests){
+        .exec(function(err, tests) {
             if (err) return console.log(err);
-
             res.render('Test/index', {tests: tests});
         });
     });
@@ -83,6 +81,18 @@ module.exports = function(app){
             if (err) return console.log(err);
 
             res.render('Test/single', {test: test});
+        });
+    });
+
+    app.get('/Test/Profile/:id', function(req, res){
+        if (!req.user) res.redirect('/');
+
+        Test.find({profile: req.params.id})
+        .populate('profile')
+        .exec(function(err, tests){
+            if (err) return console.log(err);
+
+            res.render('Test/index', {tests: tests});
         });
     });
 

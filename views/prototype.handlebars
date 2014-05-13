@@ -1,0 +1,310 @@
+<script type="text/javascript" src="/js/d3/d3.min.js"></script>
+<script type="text/javascript" src="/js/nvd3/nv.d3.min.js"></script>
+<script type="text/javascript" src="/lib/d3-tip/index.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/nvd3/nv.d3.min.css" />
+
+<style>
+
+#chart .quant path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+ 
+#chart .quant line {
+    stroke: black;
+}
+ 
+#chart .quant text {
+    font-family: Arial;
+    font-size: 9pt;
+}
+
+.quantitative-dot {
+	fill: steelblue;
+	stroke: white;
+	stroke-width: :;
+	-webkit-transform: scale(1);
+}
+
+#chart .quant path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+ 
+#chart .quant line {
+    stroke: black;
+}
+ 
+#chart .quant text {
+    font-family: Arial;
+    font-size: 9pt;
+}
+
+.quantitative-dot {
+	fill: steelblue;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: white;
+  color: #000;
+  border-radius: 2px;
+  border: 1px solid #CCC;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: white;
+  text-shadow: 0 1px 1px #777;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+
+<div id="chart">
+</div>
+
+<script type="text/javascript">
+nv.addGraph(function() {
+
+	// $.ajax({
+	// 	type: 'GET',
+	// 	url: '/api/TestValues/{{test._id}}',
+	// 	data: {
+	// 		token: "{{user.apiKey}}"
+	// 	},
+	// 	contentType: 'application/json',
+	// 	dataType: 'json',
+	// 	success: function(data){
+	// 		console.log("===========DATA==========");
+	// 		console.log(data);
+
+	// 		dataLoadedEventHandler(data);
+	// 	},
+	// 	error: dataLoadedErrorHandler,
+	// 	complete: function(jqxhr, textStatus){ return console.log(textStatus);}
+	// });
+
+	var dataLoadedErrorHandler = function() {
+		console.log("ERROR");
+	};
+
+	var dataLoadedEventHandler = function(data) {
+		//TODO: make graph from data
+		if (isQuantitative)
+			buildQuantitativeChart(data);
+		else
+			buildQualitativeChart(data);
+	};
+
+	var buildQualitativeChart = function(data) {
+		console.log("==== Qualitative Chart ====")
+
+		var color = d3.scale.ordinal()
+			.range(["red", "blue", "orange"]);
+
+		var chartData = [27, 12, 15, 49, 3],
+			radius = 300;
+
+		console.log(chartData);
+
+		var canvas = d3.select("#chart").append("svg")
+			.attr("width", 1500)
+			.attr("height", 1500)
+			.attr("class", "qual");
+
+		var group = canvas.append("g")
+			.attr("transform", "translate(300, 300)");
+
+		var arc = d3.svg.arc()
+			.innerRadius(radius - 100)
+			.outerRadius(radius);
+
+		var pie = d3.layout.pie()
+			.value(function(d) { return d; });
+
+		var arcs = group.selectAll(".arc")
+			.data(pie(chartData))
+			.enter()
+			.append("g")
+			.attr("class", "arc");
+
+		arcs.append("path")
+			.attr("d", arc)
+			.attr("fill", function (d) { return color(d.data); });
+
+
+	};
+
+	var buildQuantitativeChart = function() {
+		console.log("==== Quantitative Chart ====");
+
+		var data = [27, 12, 15, 49, 3],
+			w = 400,
+			h = 200,
+			margin = 20,
+			y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]),
+			x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
+
+		var canvas = d3.select("#chart")
+					.append("svg:svg")
+					.attr("width", w)
+					.attr("height", h)
+					.attr("class", "quant");
+
+		var g = canvas.append("svg:g")
+				.attr("transform", "translate(0, 200)");
+
+		// Line drawing function
+		var line = d3.svg.line()
+					.x(function(d, i) {
+						return x(i);
+					})
+					.y(function(d, i) {
+						return -1 * y(d);
+					});
+
+		// Draw a line
+		g.append("svg:path")
+			.attr("d", line(data));
+
+		// Tips
+		var tip = d3.tip()
+			.attr('class', 'd3-tip')
+			.offset([-10, 0])
+			.html(function(d) {
+				return "<strong>fl. OZ:</strong> <span>" + d + "</span>";
+			});
+
+		canvas.call(tip);
+
+		// Draw circles
+		var circles = g.selectAll('circle')
+			.data(data)
+			.enter().append("circle")
+			.attr('cx', function (d, i) { return x(i); })
+			.attr('cy', function (d) { return -1 * y(d); })
+			.attr('r', 5)
+			.attr('class', 'quantitative-dot')
+			.on('mouseover', tip.show)
+			.on('mouseout', tip.hide);
+
+		//===========================
+		// Axes & Ticks
+		//===========================
+
+		// X-Axis
+		g.append("svg:line")
+			.attr("x1", x(0))
+			.attr("y1", -1 * y(0))
+			.attr("x2", x(w))
+			.attr("y2", -1 * y(0));
+
+		// Y-Axis
+		g.append("svg:line")
+			.attr("x1", x(0))
+			.attr("y1", -1 * y(0))
+			.attr("x2", x(0))
+			.attr("y2", -1 * y(d3.max(data)));
+
+		// X Labels
+		g.selectAll(".xLabel")
+			.data(x.ticks(data.length - 1))
+			.enter().append("svg:text")
+			.attr("class", "xLabel")
+			.text(String)
+			.attr("x", function(d) { return x(d - 1) })
+			.attr("y", 0)
+			.attr("text-anchor", "middle");
+	 
+	 	// Y Labels
+		g.selectAll(".yLabel")
+			.data(y.ticks(4))
+			.enter().append("svg:text")
+			.attr("class", "yLabel")
+			.text(String)
+			.attr("x", 0)
+			.attr("y", function(d) { return -1 * y(d) })
+			.attr("text-anchor", "right")
+			.attr("dy", 4);
+
+		// X-Ticks
+		g.selectAll(".xTicks")
+			.data(x.ticks(data.length - 1))
+			.enter().append("svg:line")
+			.attr("class", "xTicks")
+			.attr("x1", function(d) { return x(d); })
+			.attr("y1", -1 * y(0))
+			.attr("x2", function(d) { return x(d); })
+			.attr("y2", -1 * y(-1));
+		 
+		// Y-Ticks
+		g.selectAll(".yTicks")
+			.data(y.ticks(4))
+			.enter().append("svg:line")
+			.attr("class", "yTicks")
+			.attr("y1", function(d) { return -1 * y(d); })
+			.attr("x1", x(-0.1))
+			.attr("y2", function(d) { return -1 * y(d); })
+			.attr("x2", x(0));
+
+	}();
+
+	var cleanQuantData = function(data) {
+
+		var returnData = new Array();
+
+		for (var i = 0; i < data.length; i++) {
+			var datapoint = data[i],
+				date = datapoint.datapoint.createdDate.substring(0, 10),
+				val = datapoint.quantValue;
+			returnData.push(val);
+			//returnData.push({"date": date, "value": val});
+		}
+
+		console.log(returnData);
+		return returnData;
+	};
+
+	var cleanQualData = function(data) {
+
+		var yeps = 0,
+			nopes = 0;
+
+		for (var i = 0; i < data.length; i++) {
+			var datapoint = data[i];
+
+			if (datapoint.qualValue)
+				yeps++
+			else
+				nopes++
+		}
+
+		return [yeps, nopes];
+
+	};
+
+});	
+</script>
+
+<!-- Chart Event handlers -->
+{{#if test.isQuantitative}}
+{{/if}}

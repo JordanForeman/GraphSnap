@@ -49,7 +49,8 @@ var mongoose = require('mongoose'),
             }
         },
 
-    }),
-    Test = mongoose.model('test', TestSchema);
+    });
+
+var Test = mongoose.model('test', TestSchema);
 
 module.exports = Test;

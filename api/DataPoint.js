@@ -25,4 +25,34 @@ module.exports = function(app){
 		});
 	});
 
+	// Auth this big time man
+	app.post("/api/DataPoint/UpdateIdentifier", function(req, res){
+
+		var datapointID = req.body.dataPointID,
+			newValue = req.body.newValue,
+			identifierIndex = req.body.identifierIndex;
+
+		console.log("========= Custom Identifier Change Request =========");
+		console.log("DataPointID: " + datapointID);
+		console.log("New Value: " + newValue);
+		console.log("Identifier Index: " + identifierIndex);
+
+		DataPoint.findById(datapointID)
+		.exec(function(err, datapoint){
+
+			if (err) return console.log(err);
+
+			console.log("DataPoint: ");
+			console.log(datapoint);
+
+			datapoint.customIdentifiers[identifierIndex] = newValue;
+			datapoint.save(function(err){
+				if (err) res.json(err);
+				else res.send(200); 
+			});
+
+		});
+
+	});
+
 };
