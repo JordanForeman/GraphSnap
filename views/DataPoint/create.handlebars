@@ -25,6 +25,7 @@
 		{{/if}}
 
 		{{#if profile.tests}}
+			<h3>Tests</h3>
 			<table class="table">
 				<thead>
 					<tr>
@@ -40,10 +41,37 @@
 						<td><input name="{{_id}}" type="number"></td>
 						{{/if}}
 						{{#if isQualitative}}
-						<td><input name="{{_id}}" type="checkbox"></td>
+						<td>
+							<label for="positive">Positive
+								<input type="radio" name="{{_id}}" value="POSITIVE">
+							</label>
+							<label for="negative">Negative
+								<input type="radio" name="{{_id}}" value="NEGATIVE">
+							</label>
+						</td>
 						{{/if}}
 					</tr>
 			{{/each}}
+				</tbody>
+			</table>
+		{{/if}}
+
+		{{#if profile.customIdentifiers }}
+			<h3>Identifiers</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Identifier</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each profile.customIdentifiers }}
+						<tr>
+							<td>{{this}}</td>
+							<td><input type="text" name="{{this}}"></td>
+						</tr>
+					{{/each}}
 				</tbody>
 			</table>
 		{{/if}}

@@ -9,18 +9,20 @@
     <form role="form" id="createNewTestForm" method="POST" action="/Test/CreateNew">
 
         {{#if profile}}
+        <input type="hidden" name="profile" id="profile" value="{{profile._id}}" />
         {{else}}
         <p class="well">What type of Data Point are we Testing?</p>
         <div class="form-group">
             <label for="profile">Data Profile</label>
 
-            <!-- TODO: make this update #profileId value -->
+            {{#if profiles}}
             <select onchange="pageController.updateProfileIdField(event);" class="chosen form-control" name="profile" id="profile">
                 <option value="0">-- Select a Data Profile --</option>
                 {{#each profiles}}
                     <option value="{{_id}}">{{name}}</option>
                 {{/each}}
             </select>
+            {{/if}}
         </div>
         {{/if}}
 

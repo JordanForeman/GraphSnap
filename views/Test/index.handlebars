@@ -1,5 +1,10 @@
 <h2 class="title">Tests
-<a href="Test/CreateNew" class="btn btn-small pull-right">Create New</a></h2>
+{{#if isSingle}}
+<a href="/Test/CreateNew/{{profileId}}" class="btn btn-small pull-right">Create New</a></h2>
+{{else}}
+<a href="/Test/CreateNew" class="btn btn-small pull-right">Create New</a></h2>
+{{/if}}
+
 {{#if tests}}
     <table class="table table-striped">
         <thead>

@@ -64,6 +64,7 @@ module.exports = function(app){
 		Profile.findById(profileId)
 		.exec(function(err, profile){
 
+			// Create Test Values
 			Test.find({profile: profileId}, function(err, tests){
 				if (err) return console.log(err);
 
@@ -95,19 +96,12 @@ module.exports = function(app){
 				}
 			});
 
-
-
-
-
-
-
-
 			var ids = profile.customIdentifiers;
-			dp.customIdentifiers = [dp._id];
 
-			for(var i = 1; i < ids.length; i++)
+			for(var i = 0; i < ids.length; i++)
 			{
-				dp.customIdentifiers.push("");
+				var identifier = ids[i];
+				dp.customIdentifiers[i] = req.body[identifier] || "";
 			}
 
 			dp.profile = profile;

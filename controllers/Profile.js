@@ -33,7 +33,6 @@ module.exports = function(app){
 		var profile = new Profile;
 		profile.name = req.body.profileName;
 		console.log(req.user.company);
-		profile.customIdentifiers.push("ID");
 		profile.company = req.user.company;
 		profile.save(function(err){
 			if (err) console.log(err);

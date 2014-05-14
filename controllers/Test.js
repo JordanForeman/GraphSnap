@@ -31,6 +31,18 @@ module.exports = function(app){
         });
     });
 
+    app.get('/Test/CreateNew/:id', function(req, res){
+        if (!req.user) res.redirect('/login');
+
+        var profileId = req.params.id;
+
+        Profile.findById(profileId).exec(function(err, profile){
+            if (err) return console.log(err);
+
+            res.render('Test/create', {singleProfile: true, profile: profile});
+        });
+    });
+
     app.post('/Test/CreateNew', function(req, res){
         if (!req.user) res.redirect('/');
 
@@ -92,7 +104,7 @@ module.exports = function(app){
         .exec(function(err, tests){
             if (err) return console.log(err);
 
-            res.render('Test/index', {tests: tests});
+            res.render('Test/index', {tests: tests, isSingle: true, profileId: req.params.id});
         });
     });
 
