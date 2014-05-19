@@ -136,9 +136,14 @@ nv.addGraph(function() {
 		var tip = d3.tip()
 			.attr('class', 'd3-tip')
 			.offset([-10, 0])
-			.html(function(d) {
+			.html(function(d, i) {
 				console.log(d);
-				return "<small>Count</small> : <span>" + d.data + "</span>";
+				var label;
+				if (i == 0)
+					label = "Positive";
+				else
+					label = "Negative";
+				return "<small>" + label + "</small> : <span>" + d.data + "</span>";
 			});
 
 		canvas.call(tip);
