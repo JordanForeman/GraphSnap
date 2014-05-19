@@ -27,9 +27,6 @@ module.exports = function(app) {
     	.populate('users')
     	.exec(function(err, company){
     		if (err) return next(err);
-
-    		console.log(company);
-
     		res.render('Company/users', {company : company});
     	});
     });

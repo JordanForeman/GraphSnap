@@ -4,7 +4,8 @@ var BaseController = require("./Base"),
 	config = require('../config')(),
 	jwt = require('jwt-simple'),
 	Company = require("../models/Company"),
-	User = require("../models/Users");
+	User = require("../models/Users"),
+	Emailer = require("../helpers/Emailer");
 
 module.exports = function (app) {
 
@@ -79,11 +80,26 @@ module.exports = function (app) {
 			if (loginAfter)
 				req.login(account);
 
+			var email = new Emailer(
+				account.email,
+				"Welcome to GraphSnap!",
+				"<h2>Welcome to GraphSnap!<h2>" +
+				"<p>You can login here. Your temporary password is: " + password + ". Please update your password from your account settings once you've logged in.</p>" +
+				"<p>~ The GraphSnap Team</p>"
+			);
+			email.send(function(error, success){
+				if(error) {
+					console.error("Unable to send via postmark: " + error.message);
+					return;
+				}
+
+				console.info("Sent to postmark for delivery")
+			});
+
 			account.save();
 			res.redirect('/');
 		});
 
-		//TODO: shoot off an email to the new user
 	});
 
 	app.get('/logout', function(req, res){
