@@ -1,0 +1,34 @@
+{{#if company}}
+
+<h3 class="title">
+	{{company.name}} Users
+	<a href="/Company/Users/CreateNew" class="btn btn-small pull-right">Create New</a>
+</h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Roles</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		{{#each company.users}}
+		<tr>
+			<td>{{name}}</td>
+			<td><a href="mailto:{{email}}">{{email}}</a></td>
+			<td>
+				{{#each roles}}
+				{{this}},&nbsp;
+				{{/each}}
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+{{else}}
+<!-- Redirect? -->
+{{/if}}

@@ -83,6 +83,7 @@
 			url: "/api/DataPoint/UpdateIdentifier",
 			dataType: "json",
 			data: {
+				token: "{{user.token}}",
 				dataPointID : dataPointID,
 				newValue : newVal,
 				identifierIndex: identifierIndex

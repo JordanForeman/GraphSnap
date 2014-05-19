@@ -3,7 +3,10 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	companySchema = new Schema({
 
-		name: String,
+		name: {
+			type: String,
+			required: true
+		},
 
 		creationDate: {
 			type: Date,
@@ -13,6 +16,11 @@ var mongoose = require('mongoose'),
 		tier: [{
 			type: String,
 			default: 'basic'
+		}],
+
+		users: [{
+			type: Schema.Types.ObjectId,
+			ref: 'user'
 		}]
 
 	});

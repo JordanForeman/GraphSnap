@@ -26,7 +26,7 @@ module.exports = function(app){
 	});
 
 	// Auth this big time man
-	app.post("/api/DataPoint/UpdateIdentifier", function(req, res){
+	app.post("/api/DataPoint/UpdateIdentifier", function(req, res, next){
 
 		var datapointID = req.body.dataPointID,
 			newValue = req.body.newValue,
@@ -40,7 +40,11 @@ module.exports = function(app){
 		DataPoint.findById(datapointID)
 		.exec(function(err, datapoint){
 
-			if (err) return console.log(err);
+			if (err) {
+				err.status = 500;
+				next(err);
+				return console.log(err);
+			}
 
 			console.log("DataPoint: ");
 			console.log(datapoint);

@@ -27,27 +27,63 @@ module.exports = function (app) {
 		res.render('register', { title: 'Register', layout: 'landing' });
 	});
 
+	/* 
+		Registers a new user
+		- req.body.company (opt)
+		- req.body.companyId (opt)
+		- req.body.email
+		- req.body.name
+		- req.body.password (optional)
+	*/
 	app.post('/register', function(req, res){
-		var company = new Company({ name: req.body.company });
-		company.save();
+
+		var companyId = req.body.companyId || null,
+			company = null,
+			loginAfter = true; 
+
+		console.log(companyId);
+
+		if (companyId == null) {
+			company = new Company(req.body.company);
+			company.tier = 'basic';
+			companyId = company.id;
+		} else {
+			loginAfter = false;
+		}
 
 		var key = "";
 		while (key.length < 40)
 			key += Math.random().toString(16).substring(2);
 		key = key.substring(0, 40);
 
-		User.register(new User({ email: req.body.email, company: company, name: req.body.name, apiKey: key }), req.body.password, function(err, account){
+		var password = req.body.password || 'abcd1234'; //TODO: actually generate a password
+		console.log(company);
+		User.register(new User({ email: req.body.email, company: companyId, name: req.body.name, apiKey: key }), password, function(err, account){
 			if (err) {
 				console.log('error registering');
 				console.log(err);
 				return res.render('register', {account: account});
 			}
 
-			company.save();
-			req.login(account);
+			if (company) {
+				company.users.push(account);
+				company.save();
+			} else {
+				Company.findById(companyId, function(err, company){
+					if (err) return console.log(err);
+					company.users.push(account);
+					company.save();
+				});
+			}
 
+			if (loginAfter)
+				req.login(account);
+
+			account.save();
 			res.redirect('/');
-		})
+		});
+
+		//TODO: shoot off an email to the new user
 	});
 
 	app.get('/logout', function(req, res){
