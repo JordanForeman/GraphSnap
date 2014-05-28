@@ -52,6 +52,16 @@
   left: 0;
 }
 
+#chart .quant line.marginal {
+	stroke: ORANGE;
+	stroke-width: 2;
+}
+
+#chart .quant line.critical {
+	stroke: RED;
+	stroke-width: 2;
+}
+
 </style>
 
 {{#if test}}
@@ -194,6 +204,22 @@ nv.addGraph(function() {
 		// Draw a line
 		g.append("svg:path")
 			.attr("d", line(data));
+
+		// Draw Marginal
+		g.append("svg:line")
+			.attr("x1", x(0))
+			.attr("y1", -1 * y({{test.threshold.min}}))
+			.attr("x2", x(w))
+			.attr("y2", -1 * y({{test.threshold.min}}))
+			.attr("class", "marginal");
+
+		// Draw Critical Limit
+		g.append("svg:line")
+			.attr("x1", x(0))
+			.attr("y1", -1 * y({{test.threshold.max}}))
+			.attr("x2", x(w))
+			.attr("y2", -1 * y({{test.threshold.max}}))
+			.attr("class", "critical");
 
 		// Tips
 		var tip = d3.tip()
