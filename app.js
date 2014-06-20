@@ -13,7 +13,8 @@ var config = require('./config')(),
 /* Models */
 var User = require('./models/Users'),
 	DataPoint = require('./models/DataPoint'),
-	Company = require('./models/Company');
+	Company = require('./models/Company'),
+	Notification = require('./models/Notification');
 
 /* Passport Configuration */
 passport.use(User.createStrategy({ usernameField: 'email' }));
@@ -22,7 +23,7 @@ passport.deserializeUser(User.deserializeUser());
 
 /* App Settings */
 app.use(express.logger());
-app.use(express.bodyParser());
+app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 
@@ -38,42 +39,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.locals.secret = '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOOD@[cy';
-
-/* Custom Middleware */
-app.use(function(req, res, next){
-
-	if (req.user){
-		res.locals.user = req.user;
-		res.locals.userImg = get_gravatar(req.user.email, 100);
-
-		Company.findOne({_id: req.user.company}, function(err, company){
-			if (err) return next(err);
-
-			res.locals.company = company;
-		});
-
-		//TODO: get all notifications for user
-	}
-	return next();
-});
-
-app.use('/api', function(req, res, next){
-	if (req.method == 'GET') {
-		if (!req.query.token) {res.send(403);}
-		else {next();}
-	}
-});
-
-if (process.env.ENV_VARIABLE) {
-	app.use('/', function(req, res, next){
-		if (!req.user) {
-			req.login({username: 'thejordanforeman@gmail.com', password: 'jf40070'}, function(err){
-				if (err) { console.log("=======ERR======="); console.log(err); return next(err); };
-				return next();
-			});
-		}
-	});
-}
 
 /* Middleware */
 app.use(app.router);
@@ -92,6 +57,51 @@ require('./controllers/Mail')(app);
 require('./controllers/Company')(app);
 require('./controllers/Test')(app);
 require('./controllers/Report')(app);
+require('./controllers/Import')(app);
+
+/* Custom Middleware */
+app.use(function(req, res, next){
+
+	if (req.user){
+		res.locals.user = req.user;
+		res.locals.userImg = get_gravatar(req.user.email, 100);
+
+		Company.findOne({_id: req.user.company}, function(err, company){
+			if (err) return next(err);
+
+			res.locals.company = company;
+		});
+
+		//TODO: get all notifications for user
+		Notification.findAllForUser(req.user._id, function(err, notifications){
+			if (err) return next(err);
+			
+			res.locals.notifications = notifications;
+		});
+	}
+	return next();
+});
+
+app.use('/api', function(req, res, next){
+	if (req.method == 'GET') {
+		if (!req.query.token) {res.send(403);}
+		else {next();}
+	}
+});
+
+app.use('/', function(req, res, next){
+
+	if (!req.user)
+		next();
+
+	var company = req.user.company;
+
+	Notification.find({ company: company }, function(err, notifications){
+		res.locals.notifications = notifications;
+		next();
+	});
+
+});
 
 /* API */
 require('./api/api')(app);

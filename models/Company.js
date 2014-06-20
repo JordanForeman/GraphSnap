@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 	passportLocalMongoose = require('passport-local-mongoose'),
 	Schema = mongoose.Schema,
+	User = require('../models/Users'),
 	companySchema = new Schema({
 
 		name: {
@@ -24,6 +25,15 @@ var mongoose = require('mongoose'),
 		}]
 
 	});
+
+companySchema.methods.getAllUsers = function(cb) {
+	User.find({ company : this }, cb);
+};
+
+companySchema.methods.getAllUsersToNotify = function(cb) {
+	//TODO: eventually we'll filter this...not sure how yet
+	return this.getAllUsers(cb);
+};
 
 Company = mongoose.model('company', companySchema);
 

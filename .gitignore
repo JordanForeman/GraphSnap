@@ -4,3 +4,6 @@ data
 .sass-cache
 scssOld
 *.log
+/.idea
+/uploads
+newrelic_agent.log

@@ -14,7 +14,8 @@
     "sendgrid": "~1.0.2",
     "jwt-simple": "^0.2.0",
     "newrelic": "~1.5.2",
-    "postmark": "~0.2.0"
+    "postmark": "~0.2.0",
+    "node-xlsx": "^0.4.0"
   },
   "devDependencies": {
     "grunt": "latest",

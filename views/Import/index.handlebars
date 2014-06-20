@@ -1,0 +1,16 @@
+<h1>Import Stuff Babeeeee</h1>
+
+{{#if parseData}}
+
+	{{parseData}}
+
+{{else}}
+<form id="data-importer" method="POST" action="/import" enctype="multipart/form-data">
+	<div class="form-group">
+		<label for="dataSrc">
+			<input type="file" id="dataSrc" name="dataSrc" />
+		</label>
+	</div>
+	<input type="submit" value="Import">
+</form>
+{{/if}}

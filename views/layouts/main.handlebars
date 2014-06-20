@@ -21,7 +21,7 @@
 		{{/if}}
 
 	</head>
-	<body>
+	<body class="{{#if user}}authed{{else}}unauthed{{/if}}">
 
 		{{#if error}}
 			<p>{{error}}</p>

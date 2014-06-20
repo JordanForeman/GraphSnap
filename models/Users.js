@@ -48,6 +48,12 @@ userSchema.methods.getCompany = function(){
 	});
 };
 
+userSchema.statics.findByEmail = function(email, cb) {
+	// good idea to check if the given email is a string
+	var User = this || mongoose.model('User');
+	User.findOne({email: email}, cb);
+};
+
 User = mongoose.model('user', userSchema);
 
 module.exports = User;
