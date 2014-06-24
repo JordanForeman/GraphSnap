@@ -1,16 +1,117 @@
 <h1>Import Stuff Babeeeee</h1>
 
-{{#if parseData}}
+<div>
+	<input id="csvInput" type="file" value="testdata.csv" />
+</div>
 
-	{{parseData}}
+<div>
+	<input id="profileName" type="text" placeholder="Profile Name" />
+</div>
 
-{{else}}
-<form id="data-importer" method="POST" action="/import" enctype="multipart/form-data">
-	<div class="form-group">
-		<label for="dataSrc">
-			<input type="file" id="dataSrc" name="dataSrc" />
-		</label>
-	</div>
-	<input type="submit" value="Import">
-</form>
-{{/if}}
+<div>
+	<button onclick="importCSV();">Import</button>
+</div>
+
+<table id="results" class="table">
+	<thead>
+		<tr></tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<script type="text/javascript" src="lib/jquery.parse.min.js"></script>
+<script type="text/javascript">
+
+var importCSV = function() {
+
+	$('#csvInput').parse({
+
+		config: { },
+		before: function(file, inputElem) { },
+		error: function(err, file, inputElem) { console.log(err); },
+		complete: function(results, file, inputElem, event) {
+			var data = results.results,
+				table = $('#results'),
+				header = $('#results thead tr'),
+				body = $('#results tbody'),
+				numFields = data.fields.length,
+				numRows = data.rows.length;
+
+			console.log(data);
+			
+			var profileCreationStatus = createProfileFromSpec(data.fields);
+			if (!profileCreationStatus)
+				return false; //TODO: better error
+
+			for (var i = 0; i < numFields; i++) {
+				var FieldName = data.fields[i];
+
+				// Add a heading for the field
+				$(header).append('<th>' + FieldName + '</th>');
+			}
+
+			for (var j = 0; j < numRows; j++) {
+				var RowContents = data.rows[j],
+					profileData = JSON.parse(profileCreationStatus),
+					dataPointCreationStatus = createDataPointFromSpec(RowContents, profileData["_id"]),
+					Row = document.createElement('tr');
+
+				for (RowProperty in RowContents) {
+					$(Row).append('<td>' + RowContents[RowProperty] + '</td>');
+				}
+
+				if (dataPointCreationStatus)
+					$(Row).append('<td>Success</td>');
+				else
+					$(Row).append('<td>Failed</td>');
+
+				$(body).append(Row);
+			}
+
+		}
+
+	});
+
+	var createProfileFromSpec = function(spec) {
+		var retVal = false;
+
+		var postData = {
+			name: $('#profileName').val(),
+			spec: spec
+		};
+
+		var response = $.ajax({
+			method: 'POST',
+			url: '/import/spec',
+			async: false,
+			dataType: 'json',
+			data: postData
+		}).responseText;
+
+		return response;
+	};
+
+	var createDataPointFromSpec = function(data, profileId) {
+		var retVal = false;
+
+		var postData = {
+			pid: profileId,
+			ids: data
+		};
+
+		var response = $.ajax({
+			method: 'POST',
+			url: '/import/datapoint',
+			async: false,
+			dataType: 'json',
+			data: postData
+		}).responseText;
+
+		console.log(response);
+		return retVal;
+	};
+
+};
+
+</script>

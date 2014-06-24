@@ -38,7 +38,7 @@ dataPointSchema.methods.getdataPointsOfType = function(dataPointTypeId){
 };
 
 dataPointSchema.methods.save = function(cb){
-	this.generateNotifications();
+	//this.generateNotifications();
 	this.save(cb);
 };
 
