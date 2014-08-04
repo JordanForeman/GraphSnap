@@ -31,7 +31,7 @@ var custom_middleware = require('./components/middleware')(app);
 
 // DBA SETUP
 // ===================================================================
-var DataBase 			= require('./Components/database/mongodb');
+var DataBase 			= require('./components/database/mongodb');
 DataBase(app);
 
 // Passport Setup
@@ -45,17 +45,17 @@ app.use(passport.session());
 
 // ROUTES / CONTROLLERS
 // ===================================================================
-var base 				= require('./Components'),
-	AuthController		= require('./Components/controllers/AuthController'),
-	ChartController		= require('./Components/controllers/ChartController'),
-	CompanyController	= require('./Components/controllers/CompanyController'),
-	DataPointController	= require('./Components/controllers/DataPointController'),
-	ImportController	= require('./Components/controllers/ImportController'),
-	MailHandler			= require('./Components/controllers/MailController'),
-	ProfileController	= require('./Components/controllers/ProfileController'),
-	ReportController	= require('./Components/controllers/ReportController'),
-	TestController		= require('./Components/controllers/TestController'),
-	UserController		= require('./Components/controllers/UserController');
+var base 				= require('./components'),
+	AuthController		= require('./components/controllers/AuthController'),
+	ChartController		= require('./components/controllers/ChartController'),
+	CompanyController	= require('./components/controllers/CompanyController'),
+	DataPointController	= require('./components/controllers/DataPointController'),
+	ImportController	= require('./components/controllers/ImportController'),
+	MailHandler			= require('./components/controllers/MailController'),
+	ProfileController	= require('./components/controllers/ProfileController'),
+	ReportController	= require('./components/controllers/ReportController'),
+	TestController		= require('./components/controllers/TestController'),
+	UserController		= require('./components/controllers/UserController');
 
 // register routes
 app.use('/', base);
