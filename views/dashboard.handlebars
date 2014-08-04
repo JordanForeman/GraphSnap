@@ -1,0 +1,19 @@
+{{#if user }}
+
+	{{#if notifications}}
+	<div class="alert alert-danger">
+		<strong>Urgent Notice!</strong>
+		You have <a href="/Notifications">{{notifications.count}} urgent notice</a> to attend to
+	</div>
+	{{/if}}
+
+	<section class="grid-row">
+
+		<!-- Secondary splash data -->
+		<div class="grid-1-5">
+			New Feature: <a href="/import">Import Data</a>
+		</div>
+
+	</section>
+
+{{/if}}

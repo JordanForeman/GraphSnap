@@ -1,0 +1,47 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0; right: 0;
+
+  display: block;
+  height: $headerHeight;
+  width: 100%;
+
+  background: WHITE;
+  color: $headerSecondaryColor;
+  border-bottom: 1px solid $headerSecondaryColor;
+  line-height: $headerHeight;
+
+  transition: all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+
+  &.showingSidebar {
+    left: $sidebarWidth;
+  }
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: $headerSecondaryColor;
+
+    padding: 0 15px;
+
+    transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+
+    &:hover {
+      color: WHITE;
+      background: $blue;
+    }
+  }
+}
+
+#menuToggle {
+  display:inline-block;
+  border-right: 1px solid $headerSecondaryColor;
+  height: 100%;
+}

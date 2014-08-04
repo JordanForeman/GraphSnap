@@ -1,0 +1,33 @@
+<h2 class="title">Tests
+{{#if isSingle}}
+<a href="/Test/CreateNew/{{profileId}}" class="btn btn-small pull-right">Create New</a></h2>
+{{else}}
+<a href="/Test/CreateNew" class="btn btn-small pull-right">Create New</a></h2>
+{{/if}}
+
+{{#if tests}}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Profile</th>
+                <th>Marginal</th>
+                <th>Critical</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+    {{#each tests}}
+            <tr>
+                <td><a href="Test/{{_id}}">{{name}}</a></td>
+                <td>{{profile.name}}</td>
+                <td>{{threshold.min}}</td>
+                <td>{{threshold.max}}</td>
+                <td><a href="/Report/Test/{{_id}}" class="btn btn-small">Run Test</a></td>
+            </tr>
+    {{/each}}
+        </tbody>
+    </table>
+{{else}}
+<p>No Test found - <a href="Test/CreateNew">Create A Test</a></p>
+{{/if}}

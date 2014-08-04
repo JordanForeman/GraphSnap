@@ -1,0 +1,24 @@
+{{#if users }}
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>ID</th>
+				<th>Email</th>
+				<th>Joined Date</th>
+			</tr>
+		</thead>
+		<tbody>
+	{{#each users}}
+		<tr>
+			<td>{{name}}</td>
+			<td><a href="users/{{ _id }}">{{ _id }}</a></td>
+			<td><a href="mailto:{{ email }}">{{ email }}</a></td>
+			<td>{{ joinDate }}</td>
+		</tr>
+	{{/each}}
+		</tbody>
+	</table>
+{{else}}
+No Products found
+{{/if}}

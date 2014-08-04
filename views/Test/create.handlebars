@@ -1,0 +1,103 @@
+<div class="grid-row">
+
+    {{#if profile}}
+    <h2 class="title">Create New <a href="/Profile/{{profile._id}}">{{profile.name}}</a> Test</h2>
+    {{else}}
+    <h2 class="title">Create New Test</h2>
+    {{/if}}
+
+    <form role="form" id="createNewTestForm" method="POST" action="/Test/CreateNew">
+
+        {{#if profile}}
+        <input type="hidden" name="profile" id="profile" value="{{profile._id}}" />
+        {{else}}
+        <p class="well">What type of Data Point are we Testing?</p>
+        <div class="form-group">
+            <label for="profile">Data Profile</label>
+
+            {{#if profiles}}
+            <select onchange="pageController.updateProfileIdField(event);" class="chosen form-control" name="profile" id="profile">
+                <option value="0">-- Select a Data Profile --</option>
+                {{#each profiles}}
+                    <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            {{/if}}
+        </div>
+        {{/if}}
+
+        <div class="form-group">
+            <label for="name">Test Name:
+                <input type="text" name="name" id="name" required />
+            </label>
+        </div>
+
+        <div class="grid-row">
+            <div class="grid-1-2 form-group">
+                <input type="radio" name="testType" value="QUANTITATIVE" onchange="pageController.updateTestType(event)">Quantitative
+            </div> 
+            <div class="grid-1-2 form-group">
+                <input type="radio" name="testType" value="QUALITATIVE" onchange="pageController.updateTestType(event)">Qualitative
+            </div>
+        </div>
+
+        <div id="quant-controls" class="grid-row" style="display: none;">
+            <div class="grid-1-3 form-group">
+                <label for="minvalue">Data Point Marginal:
+                    <input type="number" name="minvalue" id="minvalue" />
+                </label>
+            </div>
+
+            <div class="grid-1-3 form-group">
+                <label for="maxvalue">Data Point Critical Limit:
+                    <input type="number" name="maxvalue" id="maxvalue" />
+                </label>
+            </div>
+
+            <div class="grid-1-3 form-group">
+                <label for="maxvalue">Units of Measurement:
+                    <input type="text" name="units" id="units" />
+                </label>
+            </div>
+        </div>
+
+        <input type="submit" id="submitForm" class="btn" value="Save Test" {{#if profile}}{{else}}disabled{{/if}}/>
+        <input type="hidden" id="profileId" name="profileId" {{#if profile}}value="{{profile._id}}"{{/if}} required>
+
+    </form>
+</div>
+
+<script type="text/javascript">
+
+var Page = function(){
+};
+
+Page.prototype.updateProfileIdField = function(event) {
+    var selectedIndex = event.target.selectedIndex,
+        selectedValue = event.target[selectedIndex].value,
+        submitForm = document.getElementById('submitForm'),
+        profileIdField = document.getElementById('profileId');
+
+    profileIdField.value = selectedValue;
+    submitForm.disabled = (selectedValue == "0" || selectedValue == null)
+};
+
+Page.prototype.updateTestType = function(event) {
+    switch (event.target.value) {
+        case 'QUANTITATIVE' :
+            //show QUANT
+            $('#quant-controls').show();
+            break;
+        case 'QUALITATIVE' :
+            //Hide Quant
+            $('#quant-controls').hide();
+            break;
+        default :
+            //Hide both
+            break;
+    }
+};
+
+var pageController = new Page();
+
+</script>

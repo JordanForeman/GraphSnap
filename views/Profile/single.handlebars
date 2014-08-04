@@ -1,0 +1,99 @@
+{{#if profile}}
+	<h2 class="title">{{profile.name}}</h2>
+
+	<table class="table table-fixed">
+		<thead>
+			<tr>
+				<th>Data Points <a class="btn btn-small" href="/DataPoint/CreateNew/{{profile._id}}">Add Data Point</a></th>
+				<th>Identifiers <a class="btn btn-small" href="/Profile/AddIdentifier/{{profile._id}}">Add Identifier</a></th>
+				<th>Tests - <a href="/Test/Profile/{{profile._id}}">Run Tests</a> <a class="btn btn-small" href="/Test/CreateNew/{{profile._id}}">Add Test</a></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{profile.dataPoints.length}}</td>
+				<td>{{profile.customIdentifiers.length}}</td>
+				<td>{{profile.tests.length}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	{{#if profile.dataPoints}}
+	<h4>Identifiers</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				{{#if profile.customIdentifiers}}
+				{{#each profile.customIdentifiers}}
+				<th>{{this}}</th>
+				{{/each}}
+				{{/if}}
+			</tr>
+		</thead>
+
+		<tbody>
+			{{#each profile.dataPoints}}
+			<tr data-id="{{_id}}">
+				{{#each customIdentifiers}}
+				<td contenteditable onfocus="snapshotValue(this)" onblur="saveIdentifier(this);">{{ this }}</td>
+				{{/each}}
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{{/if}}
+
+	<script type="text/javascript">
+
+	var settings = {
+		currentValue : ""
+	};
+
+	var snapshotValue = function(field) {
+		settings.currentValue = field.innerHTML;
+	};
+
+	var saveIdentifier = function(field) {
+		var newVal = field.innerHTML,
+			dataPointID = $(field).parent('tr').data('id'),
+			identifierIndex = $(field).index();
+
+		console.log(identifierIndex);
+
+		// Set field to no longer accept input until AJAX is done
+		$(field).attr('contenteditable', false);
+
+		var dataUpdateCompleteHandler = function() {
+			console.log("AJAX Call Complete");
+			$(field).attr('contenteditable', true);
+		};
+
+		var dataUpdateSuccessHandler = function(data) {
+			console.log("AJAX Call Successful");
+			console.log(data);
+		};
+
+		var dataUpdateErrorHandler = function() {
+			field.innerHTML = settings.currentValue;
+			console.log("AJAX Call Failed");
+		};
+
+		$.ajax({
+			type: "POST",
+			url: "/api/DataPoint/UpdateIdentifier",
+			dataType: "json",
+			data: {
+				token: "{{user.token}}",
+				dataPointID : dataPointID,
+				newValue : newVal,
+				identifierIndex: identifierIndex
+			},
+			complete: dataUpdateCompleteHandler,
+			success: dataUpdateSuccessHandler,
+			error: dataUpdateErrorHandler
+		});
+	};
+
+	</script>
+
+{{/if}}

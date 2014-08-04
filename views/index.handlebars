@@ -1,0 +1,128 @@
+
+
+		<section class="grid-row">
+			<h2 class="text-center">So Much Data, So Little Time</h2>
+			<p>Take control of your manufacturing data with a simple, beautifully designed app that will speed up the time to decision, eliminate manual record keeping​, and provide meaningful graphs, charts, and reports to help you manage your process. Get the information you need to make informed business decisions.</p>
+		</section>
+
+		<section class="grid-row">
+			<div class="grid-1-5">
+				<img src="images/graph.png" alt="" />
+			</div>
+
+			<div class="grid-4-5">
+				<h3>Our Solution</h3>
+				<p>GraphSnap takes your data and presents it in a manner that is easy to understand and interpret. Quickly import your data into GraphSnap and allow it to organize, trend, and graph it for you. Notifications alert you to any out-of-specification situations immediately after analysis. Easily forward any alerts to decision makers for quick action.</p>
+
+				<p>Statistical process control analysis alerts you when your process needs an adjustment to prevent it from becoming out of control.</p>
+			</div>
+		</section>
+
+		<section class="grid-row">
+			<div class="grid-4-5">
+				<h3>Track, Trend and Review Your Data</h3>
+				<p>You paid for your data. Get the most out of it!<p>
+				<p>You don’t need to be a statistician to find meaningful information from your data. GraphSnap does all of the work for you. Just import your data and set your specifications. GraphSnap creates statistical control charts such as x-bar charts, moving range charts, and custom charts based on user-defined limits. Find problems before they find you!</p>
+			</div>
+
+			<div class="grid-1-5">
+				<img src="http://placehold.it/200x200" alt="" />
+			</div>
+		</section>
+
+		<section class="grid-row">
+			<div class="grid-1-3">
+				<img class="block-center" src="images/screen.png" alt="" />
+				<h3 class="text-center">Intuitive Interface</h3>
+				<p>Beautifully simple to use. Simply beautiful to look at. Never before has your data come to life like this.</p>
+			</div>
+
+			<div class="grid-1-3">
+				<img class="block-center" src="http://placehold.it/200x200" alt="" />
+				<h3 class="text-center">Accelerate Time to Decision</h3>
+				<p>Product waits on the dock. Trucks wait in the yard. The laboratory’s results are in but you still have to look over everything to make sure it’s safe to ship. Stop manually comparing your laboratory results to your customers' specifications. GraphSnap will quickly evaluate the results and alert you to any issues.</p>
+			</div>
+
+			<div class="grid-1-3">
+				<img class="block-center" src="images/cloudPowered.png" alt="" />
+				<h3 class="text-center">Powered by the Cloud</h3>
+				<p>Manage your data from anywhere with an internet connection. No software to install or configure. Just sign in and get to work.</p>
+			</div>
+
+		</section>
+
+		<hr />
+
+		<section class="grid-row">
+			<div class="grid-1-5">
+				<img src="http://placehold.it/200x200" alt="" />
+			</div>
+
+			<div class="grid-4-5">
+				<h3>The GraphSnap Story</h3>
+				<p>Founded in 2013, GraphSnap aims to close the gap between a customer’s laboratory provider and in-house quality/manufacturing process. Our founders have years of experience in the commercial testing laboratory, food manufacturing, and software engineering industries. We decided there was a better way to handle laboratory data, and so GraphSnap was born.</p>
+			</div>
+		</section>
+
+<script type="text/javascript">
+
+var valid = function(){
+
+	var _attemptCount = 0;
+
+	var routeLogin = function(){
+		_attemptCount++;
+
+		if (_attemptCount > 1)
+			route.login();
+	};
+
+	return {
+		routeLogin : routeLogin
+	};
+}();
+
+var route = function(){
+
+	var login = function(){
+		window.location = "/Login";
+	};
+
+	return {
+		login : login
+	};
+}();
+
+var contact = function(){
+
+	var sendMsg = function(){
+		var fromEmail = $("#home-contactForm-email").val(),
+			message = $("#home-contactForm-message").val();
+
+
+		$.ajax({
+			type: "POST",
+			url: "/Contact",
+			data: {
+				from: fromEmail,
+				msg: message,
+				success: function(data, textStatus, jqXHR){
+					return console.log(data + " " + textStatus);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+					return console.log(errorThrown + " " + textStatus);
+				},
+				dataType: "json"
+			}
+		});
+
+		return false;
+	};
+
+	return {
+		sendMsg : sendMsg
+	};
+
+}();
+
+</script>

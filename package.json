@@ -1,0 +1,44 @@
+{
+  "name": "graphsnap",
+  "version": "0.0.1",
+  "description": "A Bioinformatic Data Aggregator",
+  "author": "Jordan Foreman",
+  "contributors": [
+    {
+      "name": "Jordan Foreman",
+      "email": "jordan@betterthangreat.co"
+    }
+  ],
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.4.3",
+    "mongoose": "~3.8.12",
+    "morgan": "~1.0.0",
+    "method-override": "~1.0.0",
+    "cookie-parser": "~1.0.0",
+    "body-parser": "~1.0.0",
+    "jade": "latest",
+    "backbone": "~1.1.2",
+    "underscore": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "express-session": "~1.0.0",
+    "connect-ensure-login": "latest",
+    "sendgrid": "~1.0.2",
+    "jwt-simple": "^0.2.0",
+    "newrelic": "~1.5.2",
+    "postmark": "~0.2.0",
+    "bcrypt-nodejs": "0.0.3",
+    "express3-handlebars": "latest"
+  },
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-sass": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-nodemon": "~0.2.0",
+    "grunt-concurrent": "~0.4.3"
+  }
+}
