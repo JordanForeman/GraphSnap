@@ -5,7 +5,8 @@ var config = {
 		host: 'localhost',
 		dbPort: 27017,
 		dbName: 'DB',
-		dbHost: "mongodb://localhost:27017/DB"
+		dbHost: "mongodb://localhost:27017/DB",
+		secret: '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOOD@[cy'
 	},
 	staging: {
 		mode: 'staging',
@@ -13,7 +14,8 @@ var config = {
 		host: 'localhost',
 		dbPort: 27017,
 		dbName: 'DB',
-		dbHost: "mongodb://localhost:27017/DB" //TODO: setup staging environment
+		dbHost: "mongodb://localhost:27017/DB", //TODO: setup staging environment
+		secret: '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOOD@[cy'
 	},
 	production: {
 		mode: 'production',
@@ -21,7 +23,8 @@ var config = {
 		host: 'localhost',
 		dbPort: 27017,
 		dbName: 'DB',
-		dbHost: process.env.MONGOHQ_URL
+		dbHost: process.env.MONGOHQ_URL,
+		secret: '}0B+:f9AH(-(mn|_P]^*+*GCb]aiT<t.vOaa+jo&lM)ArofYBC4 xvTlUOOD@[cy'
 	}
 }
 

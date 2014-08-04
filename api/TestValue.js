@@ -1,21 +1,28 @@
-var mongoose = require("mongoose"),
-	TestValue = require("../models/TestValue");
+var mongoose = require("mongoose");
 
-module.exports = function(app){
+var TestValue = require("../components/TestValue");
 
-	app.get("/api/TestValues/:testId", function(req, res){
-		if (!req.user)
-			res.redirect('/');
+var router = require('express').Router();
 
-		TestValue.find({test: req.params.testId})
-		.sort({dateCreated: -1})
-		.populate('datapoint')
-		.exec(function(err, testValues){
-			if (err) return console.log(err);
+// Handlers
+var getTestValuesByTestId = function(req, res) {
+	if (!req.user)
+		res.redirect('/');
 
-			console.log(testValues);
-			res.json(testValues);
-		});
+	TestValue.find({test: req.params.testId})
+	.sort({dateCreated: -1})
+	.populate('datapoint')
+	.exec(function(err, testValues){
+		if (err) return console.log(err);
+
+		console.log(testValues);
+		res.json(testValues);
 	});
-
 };
+
+//======================
+// Register Handlers
+//======================
+router.get('/TestValues/:testId', getTestValuesByTestId);
+
+module.exports = router;
